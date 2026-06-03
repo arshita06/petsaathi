@@ -1,0 +1,118 @@
+
+<x-admin-layout title="Users">
+    <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <div>
+            <h2 class="text-2xl font-bold text-slate-950">Users</h2>
+            <p class="mt-1 text-sm text-slate-500">Manage registered users and their account status.</p>
+        </div>
+
+        <a href="{{ route('admin.user.create') }}"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14" />
+                <path d="M5 12h14" />
+            </svg>
+            Create User
+        </a>
+    </div>
+
+    <div class="mb-6 grid gap-4 sm:grid-cols-3">
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm font-medium text-slate-500">Total Users</p>
+            <p class="mt-2 text-3xl font-bold text-slate-950">{{ $users->count() }}</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm font-medium text-slate-500">Active Users</p>
+            <p class="mt-2 text-3xl font-bold text-emerald-600">
+                {{ $users->filter(fn ($user) => (bool) ($user->is_active ?? true))->count() }}
+            </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm font-medium text-slate-500">Inactive Users</p>
+            <p class="mt-2 text-3xl font-bold text-rose-600">
+                {{ $users->filter(fn ($user) => ! (bool) ($user->is_active ?? true))->count() }}
+            </p>
+        </div>
+    </div>
+
+    @if (session('success'))
+        <div class="mb-6 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <div class="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+        <div class="border-b border-slate-200 px-6 py-4">
+            <h3 class="text-base font-semibold text-slate-950">User List</h3>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500">Name</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500" style="padding-right: 12.5rem;">Email</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Active</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Role</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y divide-slate-100 bg-white">
+                    @forelse ($users as $user)
+                        <tr class="hover:bg-slate-50">
+                            <td class="whitespace-nowrap px-6 py-4">
+                                <div class="flex items-center justify-start gap-3">
+                                    <div class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-blue-100 text-sm font-bold text-blue-700">
+                                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                                    </div>
+                                    <span class="text-left text-sm font-semibold text-slate-950">{{ $user->name }}</span>
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-center text-sm text-slate-600" style="padding-right: 12.5rem;">
+                                {{ $user->email }}
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-center">
+                                @if ((bool) ($user->is_active ?? true))
+                                    <span class="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 ring-1 ring-emerald-200">Active</span>
+                                @else
+                                    <span class="inline-flex rounded-full bg-rose-50 px-3 py-1 text-xs font-bold text-rose-700 ring-1 ring-rose-200">Inactive</span>
+                                @endif
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-center">
+                                <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700">
+                                    {{ $user->roles->pluck('name')->map(fn ($role) => ucfirst($role))->join(', ') ?: 'User' }}
+                                </span>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4">
+                                <div class="flex justify-center gap-2">
+                                    <a href="{{ route('admin.user.edit', $user) }}"
+                                        class="inline-flex items-center rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-700 hover:bg-blue-100">
+                                        Edit
+                                    </a>
+
+                                    <form method="POST" action="{{ route('admin.user.destroy', $user) }}"
+                                        onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit"
+                                            class="inline-flex items-center rounded-lg border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-bold text-rose-700 hover:bg-rose-100">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center text-sm text-slate-500">
+                                No users found.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</x-admin-layout>
