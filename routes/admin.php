@@ -97,7 +97,14 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function (){
     })->name('permissions.index');
 
     Route::get('permissions/create', function () {
-        return view('Permission.create');
+        return view('Permission.create', [
+            'modules' => Permission::query()
+                ->whereNotNull('module')
+                ->where('module', '!=', '')
+                ->distinct()
+                ->orderBy('module')
+                ->pluck('module'),
+        ]);
     })->name('permissions.create');
 
     Route::post('permissions', function (Request $request) {

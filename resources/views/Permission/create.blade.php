@@ -22,9 +22,17 @@
             <div class="grid gap-5 md:grid-cols-2">
                 <div>
                     <label for="module" class="mb-2 block text-sm font-semibold text-slate-700">Module</label>
-                    <input id="module" type="text" name="module" value="{{ old('module') }}"
-                        class="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-                        placeholder="Example: User" required>
+                    <select id="module" name="module" required style="width: 100%;"
+                        class="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
+                        <option></option>
+                        @foreach ($modules as $module)
+                            <option value="{{ $module }}" @selected(old('module') === $module)>{{ $module }}</option>
+                        @endforeach
+                        @if (old('module') && ! $modules->contains(old('module')))
+                            <option value="{{ old('module') }}" selected>{{ old('module') }}</option>
+                        @endif
+                    </select>
+                    <p class="mt-1 text-xs text-slate-400">Pick an existing module or type a new name and press Enter.</p>
                     @error('module')
                         <p class="mt-2 text-sm font-semibold text-rose-600">{{ $message }}</p>
                     @enderror
@@ -64,4 +72,47 @@
             </div>
         </form>
     </div>
+
+    {{-- Select2: searchable dropdown that also lets you type a brand-new module --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container .select2-selection--single {
+            height: 42px;
+            border-color: #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 5px 6px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 30px;
+            color: #0f172a;
+            padding-left: 6px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 40px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: #94a3b8;
+        }
+        .select2-container--default.select2-container--focus .select2-selection--single,
+        .select2-container--default.select2-container--open .select2-selection--single {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px #dbeafe;
+        }
+        .select2-dropdown {
+            border-color: #cbd5e1;
+            border-radius: 0.5rem;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        jQuery(function ($) {
+            $('#module').select2({
+                tags: true,
+                width: '100%',
+                placeholder: 'Select or type a module',
+                allowClear: false,
+            });
+        });
+    </script>
 </x-admin-layout>

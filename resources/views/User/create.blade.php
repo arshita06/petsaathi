@@ -78,9 +78,10 @@
                     <h3 class="text-sm font-semibold text-slate-950">Assign Roles</h3>
                 </div>
 
-                <div class="grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="flex flex-wrap gap-4 p-5">
                     @forelse ($roles as $role)
-                        <label class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                        <label
+                            class="flex min-w-[180px] flex-1 cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-blue-300 hover:bg-blue-50 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 has-[:checked]:text-blue-700 has-[:checked]:ring-1 has-[:checked]:ring-blue-500">
                             <input type="checkbox" name="roles[]" value="{{ $role->name }}"
                                 @checked(in_array($role->name, old('roles', [])))
                                 class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
