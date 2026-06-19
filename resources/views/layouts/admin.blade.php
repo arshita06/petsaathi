@@ -45,39 +45,72 @@
                         <p class="px-3 text-xs font-bold uppercase tracking-wider text-slate-400">Management</p>
 
                         <div class="mt-2 space-y-1">
-                            <a href="{{ route('admin.user.index') }}"
-                                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold {{ request()->routeIs('admin.user.*') ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }}">
-                                <span class="grid h-8 w-8 place-items-center rounded-md {{ request()->routeIs('admin.user.*') ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600' }}">
-                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                        <circle cx="9" cy="7" r="4" />
-                                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            <div x-data="{ open: {{ request()->routeIs('admin.user.*', 'admin.roles.*', 'admin.permissions.*') ? 'true' : 'false' }} }">
+                                <button type="button" @click="open = ! open"
+                                    class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-950">
+                                    <span class="grid h-8 w-8 place-items-center rounded-md bg-slate-100 text-slate-600">
+                                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                                            <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                                            <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                                            <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                                            <rect x="7" y="7" width="10" height="10" rx="1" />
+                                        </svg>
+                                    </span>
+                                    <span class="flex-1 text-left">Access Control</span>
+                                    <svg class="h-4 w-4 transition-transform duration-200" :class="open && 'rotate-90'"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="m9 18 6-6-6-6" />
                                     </svg>
-                                </span>
-                                User Management
-                            </a>
+                                </button>
 
-                            <a href="{{ route('admin.roles.index') }}"
-                                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold {{ request()->routeIs('admin.roles.*') ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }}">
-                                <span class="grid h-8 w-8 place-items-center rounded-md {{ request()->routeIs('admin.roles.*') ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600' }}">
-                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.68 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7Z" />
-                                    </svg>
-                                </span>
-                                Roles
-                            </a>
+                                <div x-show="open" x-transition class="ml-7 mt-1 space-y-1 border-l border-slate-200 pl-3">
+                                    <a href="{{ route('admin.user.index') }}"
+                                        class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold {{ request()->routeIs('admin.user.*') ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }}">
+                                        <span class="grid h-7 w-7 place-items-center rounded-md {{ request()->routeIs('admin.user.*') ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600' }}">
+                                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                                <circle cx="9" cy="7" r="4" />
+                                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                            </svg>
+                                        </span>
+                                        User Management
+                                    </a>
 
-                            <a href="{{ route('admin.permissions.index') }}"
-                                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold {{ request()->routeIs('admin.permissions.*') ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }}">
-                                <span class="grid h-8 w-8 place-items-center rounded-md {{ request()->routeIs('admin.permissions.*') ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600' }}">
+                                    <a href="{{ route('admin.roles.index') }}"
+                                        class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold {{ request()->routeIs('admin.roles.*') ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }}">
+                                        <span class="grid h-7 w-7 place-items-center rounded-md {{ request()->routeIs('admin.roles.*') ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600' }}">
+                                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.68 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7Z" />
+                                            </svg>
+                                        </span>
+                                        Roles
+                                    </a>
+
+                                    <a href="{{ route('admin.permissions.index') }}"
+                                        class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold {{ request()->routeIs('admin.permissions.*') ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }}">
+                                        <span class="grid h-7 w-7 place-items-center rounded-md {{ request()->routeIs('admin.permissions.*') ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600' }}">
+                                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M15 7h3a5 5 0 0 1 0 10h-3" />
+                                                <path d="M9 17H6A5 5 0 0 1 6 7h3" />
+                                                <path d="M8 12h8" />
+                                            </svg>
+                                        </span>
+                                        Permissions
+                                    </a>
+                                </div>
+                            </div>
+
+                            <a href="{{ route('admin.category.index') }}"
+                                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold {{ request()->routeIs('admin.category.*') ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }}">
+                                <span class="grid h-8 w-8 place-items-center rounded-md {{ request()->routeIs('admin.category.*') ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600' }}">
                                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M15 7h3a5 5 0 0 1 0 10h-3" />
-                                        <path d="M9 17H6A5 5 0 0 1 6 7h3" />
-                                        <path d="M8 12h8" />
+                                        <path d="M3 7V5a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v2" />
+                                        <path d="M3 7h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 7Z" />
                                     </svg>
                                 </span>
-                                Permissions
+                                Categories
                             </a>
                         </div>
                     </div>
