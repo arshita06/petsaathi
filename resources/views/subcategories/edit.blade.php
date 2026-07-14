@@ -50,7 +50,7 @@
 
                 @if ($subcategory->image)
                     <div class="mb-3">
-                        <img src="{{ asset('storage/' . $subcategory->image) }}" alt="{{ $subcategory->name }}"
+                        <img src="{{ asset($subcategory->image) }}" alt="{{ $subcategory->name }}"
                             class="h-20 w-20 rounded-lg object-cover">
                     </div>
                 @endif

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class SubCategoryController extends Controller
 {
@@ -16,7 +17,7 @@ class SubCategoryController extends Controller
     {
         $data['subcategory'] = SubCategory::all();
         // dd($data);
-        return view('categories.subcategories.index', $data);
+        return view('subcategories.index', $data);
 
     }
 
@@ -28,7 +29,7 @@ class SubCategoryController extends Controller
         $data['categories'] = Category::with('subcategory')->get();
         // dd( $data['categories']);
 
-        return view('categories.subcategories.create', $data);
+        return view('subcategories.create', $data);
     }
 
     /**
@@ -40,12 +41,17 @@ class SubCategoryController extends Controller
             'name' => 'required|string',
             'image' => 'required|image|mimes:jpg,jpeg,png,webp',
             ]);
-        $imagePath = $request->file('image')->store('Subcategories', 'public');
+
         $subcategory = new SubCategory();
         $subcategory->category_id = $request->category_id;
         $subcategory->name = $request->name;
         $subcategory->is_active = $request->is_active;
-        $subcategory->image = $imagePath;
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = time() . '_' . str_replace(' ', '_', $image->getClientOriginalName());
+            $image->move(public_path('uploads/subcategories'), $imageName);
+            $subcategory->image = 'uploads/subcategories/' . $imageName;
+        }
         $subcategory->save();
         return redirect()->route('admin.subcategory.index')->with('success', 'Subcategory Created succesfully');
 
@@ -69,7 +75,7 @@ class SubCategoryController extends Controller
         $data['subcategory'] = SubCategory::findorFail($id);
         $data['categories'] = Category::with('subcategory')->get();
 
-        return view('categories.subcategories.edit', $data);
+        return view('subcategories.edit', $data);
 
     }
 
@@ -78,11 +84,19 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, SubCategory $subcategory)
     {
-        $imagePath = $request->file('image')->store('Subcategories', 'public');
         $subcategory->category_id = $request->category_id;
         $subcategory->name = $request->name;
         $subcategory->is_active = $request->is_active;
-        $subcategory->image = $imagePath;
+        if($request->hasFile('image')){
+            if($subcategory->image && File::exists(public_path($subcategory->image))){
+                File::delete(public_path($subcategory->image));
+            }
+            $image = $request->file('image');
+            $imageName = time() . '_' . str_replace(' ' , '_',$image->getClientOriginalName());
+            $image->move(public_path('uploads/subcategories'), $imageName);
+            $subcategory->image = 'uploads/subcategories/'. $imageName;
+
+        };
         $subcategory->save();
         return redirect()->route('admin.subcategory.index')->with('success', 'Subcategory updated succesfully');
     }

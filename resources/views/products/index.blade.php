@@ -1,13 +1,13 @@
 <x-admin-layout title="Subcategories">
     <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-            <h2 class="text-2xl font-bold text-slate-950">Subcategories</h2>
-            <p class="mt-1 text-sm text-slate-500">Manage subcategories.</p>
+            <h2 class="text-2xl font-bold text-slate-950">Products</h2>
+            <p class="mt-1 text-sm text-slate-500">Manage Products.</p>
         </div>
 
-        <a href="{{ route('admin.subcategory.create') }}"
+        <a href="{{ route('admin.product.create') }}"
             class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700">
-            Create Subcategory
+            Create Products
         </a>
     </div>
 
@@ -19,7 +19,7 @@
 
     <div class="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
         <div class="border-b border-slate-200 px-6 py-4">
-            <h3 class="text-base font-semibold text-slate-950">Subcategory List</h3>
+            <h3 class="text-base font-semibold text-slate-950">Product List</h3>
         </div>
 
         <div class="overflow-x-auto">
@@ -28,7 +28,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500">Sr. No.</th>
                         <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500">Image</th>
-                        <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500">Subcategory Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500">Product Name</th>
                         <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Is Active</th>
                         <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Action</th>
                     </tr>
@@ -39,7 +39,7 @@
                             <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600">{{ $loop->iteration }}</td>
                             <td class="whitespace-nowrap px-6 py-4">
                                 @if ($item->image)
-                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}"
+                                    <img src="{{ asset($item->image) }}" alt="{{ $item->name }}"
                                         class="h-10 w-10 rounded-lg object-cover">
                                 @else
                                     <span class="grid h-10 w-10 place-items-center rounded-lg bg-slate-100 text-xs font-bold text-slate-400">N/A</span>
