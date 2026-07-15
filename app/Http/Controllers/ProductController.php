@@ -14,7 +14,8 @@ class ProductController extends Controller
     public function index()
     {
         $data['products'] = Product::with('subCategory')->where('status', 1)->get();
-        return view('products.index');
+        dd($data['products']);
+        return view('products.index', $data);
 
     }
 
