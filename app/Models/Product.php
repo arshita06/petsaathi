@@ -15,7 +15,7 @@ class Product extends Model
 
     use HasFactory,HasRoles, Notifiable, SoftDeletes ;
 
-    public function subCategory()
+    public function subcategory()
     {
         return $this->belongsTo(SubCategory::class, 'subcategory_id');
     }

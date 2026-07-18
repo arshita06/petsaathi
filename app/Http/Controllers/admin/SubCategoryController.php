@@ -26,7 +26,7 @@ class SubCategoryController extends Controller
      */
     public function create()
     {
-        $data['categories'] = Category::with('subcategory')->get();
+        $data['categories'] = Category::with('subcategory')->where('is_active',1)->where('deleted_at', null)->get();
         // dd( $data['categories']);
 
         return view('subcategories.create', $data);

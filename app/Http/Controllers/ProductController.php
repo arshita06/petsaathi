@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -13,8 +14,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data['products'] = Product::with('subCategory')->where('status', 1)->get();
-        dd($data['products']);
+        $data['products'] = Product::with(['subcategory.category', 'subcategory'])->whereHas('subcategory', function ($q){
+            $q->where('is_active', 1)
+            ->where('deleted_at',null);
+        })->whereHas('subcategory.category', function ($q){
+            $q->where('is_active', 1)
+            ->where('deleted_at', null);
+        })->get();
+        // dd($data['products']);
         return view('products.index', $data);
 
     }
@@ -24,7 +31,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $data['subcategories'] = SubCategory::where('is_active',1)->where('deleted_at', null)->pluck('name', 'id');
+        $data['categories'] = Category::where('is_active',1)->where('deleted_at', null)->pluck('name', 'id');
+        return view('products.create', $data);
     }
 
     /**
