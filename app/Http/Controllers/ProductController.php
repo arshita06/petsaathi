@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -39,9 +40,25 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        // dd($request->all());
+        $product = new Product();
+        $product->name = $request->name;
+        $product->subcategory_id = $request->subcategory_id;
+        $product->stock = $request->stock;
+        $product->price = $request->price;
+        $product->status = $request->is_active;
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = time() . '_' . str_replace(' ', '_', $image->getClientOriginalName());
+            $image = $image->move(public_path('uploads/products'), $imageName);
+            $product->image = 'uploads/products/' . $imageName;
+
+        }
+        $product->save();
+        // dd($product);
+        return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
     }
 
     /**
@@ -57,15 +74,33 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['product'] = Product::findOrFail($id);
+        $data['subcategories'] = SubCategory::where('is_active',1)->where('deleted_at', null)->pluck('name', 'id');
+        $data['categories'] = Category::where('is_active',1)->where('deleted_at', null)->pluck('name', 'id');
+        return view('products.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, string $id)
     {
-        //
+        $product->name = $request->name;
+        $product->subcategory_id = $request->subcategory_id;
+        $product->stock = $request->stock;
+        $product->price = $request->price;
+        $product->status = $request->is_active;
+        if($request->hasFile('image')){
+            if($product->image && file_exists(public_path($product->image))){
+                file::delete(public_path($product->image));
+            }
+            $image = $request->hasFile('image');
+            $imageName = time() . '_' . str_replace(' ', '_', $image->geyclientOriginalName());
+            $image = $image->move(public_path('uploads/products'), $imageName);
+            $product->image = 'uploads/products/' . $imageNmae;
+        }
+        $product->save();
+        return redirect()->route('admin.product.index')->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -73,6 +108,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product  = Product::findorfail($id);
+        $product->delete();
+        return redirect()->route('admin.product.index')->with('success', 'Product deleted successfully.');
     }
 }

@@ -14,5 +14,5 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
     Route::resource('permissions', PermissionController::class)->except('show');
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory', SubCategoryController::class);
-    Route::Resource('product', ProductController::class);
+    Route::resource('product', ProductController::class);
 });
