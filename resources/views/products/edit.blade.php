@@ -20,7 +20,7 @@
             class="p-6">
             @csrf
             @method('PUT')
-            <div class="grid grid-cols-1 gap-5 md:grid cols-2">
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div class="mt-5">
                     <label for="name" class="mb-2 block text-sm font-semibold text-slate-700">Product Name</label>
                     <input id="name" type="text" name="name" value="{{ old('name', $product->name) }}"
@@ -36,8 +36,10 @@
                         class="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                         required>
                         <option value="">-- Select Category --</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" @selected(old('category_id', $product->category_id) == $category->id)>{{ $category->name }}
+                        {{-- @dd($categories) --}}
+                        @foreach ($categories as $id => $name)
+                            {{-- @dd($category) --}}
+                            <option value="{{ $id }}" @selected(old('product->subcategory->category_id', $product->subcategory->category_id) == $id)>{{ $name }}
                             </option>
                         @endforeach
                     </select>
@@ -52,8 +54,8 @@
                         class="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                         required>
                         <option value="">-- Select Subcategory --</option>
-                        @foreach ($subcategories as $subcategory)
-                            <option value="{{ $subcategory->id }}" @selected(old('subcategory_id', $product->subcategory_id) == $subcategory->id)>{{ $subcategory->name }}
+                        @foreach ($subcategories as $id => $name)
+                            <option value="{{ $id }}" @selected(old('subcategory_id', $product->subcategory_id) == $id)>{{ $name }}
                             </option>
                         @endforeach
                     </select>
@@ -83,7 +85,7 @@
 
                 <div>
                     <label for="price" class="mb-2 block text-sm font-semibold text-slate-700">Price</label>
-                    <input id="price" type="text" name="price" value="{{ old('price') }}"
+                    <input id="price" type="text" name="price" value="{{ old('price', $product->price) }}"
                         class="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                         placeholder="Example: 230" required>
                     @error('price')
@@ -93,7 +95,7 @@
 
                 <div>
                     <label for="stock" class="mb-2 block text-sm font-semibold text-slate-700">Stock</label>
-                    <input id="stock" type="text" name="stock" value="{{ old('stock') }}"
+                    <input id="stock" type="text" name="stock" value="{{ old('stock', $product->stock) }}"
                         class="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                         placeholder="Example: 20" required>
                     @error('stock')
@@ -101,7 +103,7 @@
                     @enderror
                 </div>
 
-                <div class="mt-5">
+                <div>
                     <label class="flex items-center gap-2 text-sm font-semibold text-slate-700">
                         <input type="checkbox" name="is_active" value="1" @checked(old('is_active', $product->is_active))
                             class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">

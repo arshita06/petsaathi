@@ -30,6 +30,10 @@ CREATE TABLE `cache` (
 
 /*Data for the table `cache` */
 
+insert  into `cache`(`key`,`value`,`expiration`) values 
+('petsaathi-cache-jatin.sharma@theknowledgeacademy.com|127.0.0.1','i:1;',1784548440),
+('petsaathi-cache-jatin.sharma@theknowledgeacademy.com|127.0.0.1:timer','i:1784548440;',1784548440);
+
 /*Table structure for table `cache_locks` */
 
 DROP TABLE IF EXISTS `cache_locks`;
@@ -224,14 +228,19 @@ CREATE TABLE `products` (
   `name` varchar(255) DEFAULT NULL,
   `price` bigint(20) DEFAULT NULL,
   `stock` bigint(20) DEFAULT NULL,
+  `image` longtext DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `products` */
+
+insert  into `products`(`id`,`subcategory_id`,`name`,`price`,`stock`,`image`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,5,'pedigree',150,20,NULL,1,'2026-07-15 15:35:55','2026-07-15 15:36:07',NULL),
+(2,6,'Rat toys',200,100,'uploads/products/1784525725_rat_toy.jpg',1,'2026-07-20 04:59:59','2026-07-20 05:35:25',NULL);
 
 /*Table structure for table `role_has_permissions` */
 
@@ -301,7 +310,7 @@ CREATE TABLE `subcategory` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `subcategory` */
 
@@ -310,7 +319,8 @@ insert  into `subcategory`(`id`,`category_id`,`name`,`is_active`,`image`,`create
 (2,4,'food',1,'Subcategories/6o0kUMbu4J0mTP1U2knydAJ3ONtLdXdvtHW4FS7O.png','2026-06-18 12:07:09','2026-06-25 08:34:48','2026-06-25 08:34:48'),
 (3,1,'food',1,'uploads/subcategories/1782377065_dummy.png','2026-06-25 08:44:25','2026-06-25 08:44:39','2026-06-25 08:44:39'),
 (4,1,'Food',1,'uploads/subcategories/1782377789_dummy2.png','2026-06-25 08:47:22','2026-06-25 08:57:05','2026-06-25 08:57:05'),
-(5,1,'Food',1,'uploads/subcategories/1782377919_dog_food.jpg','2026-06-25 08:58:39','2026-06-25 08:58:39',NULL);
+(5,1,'Food',1,'uploads/subcategories/1782377919_dog_food.jpg','2026-06-25 08:58:39','2026-06-25 08:58:39',NULL),
+(6,4,'toys',1,'uploads/subcategories/1784523553_cat_toys.jpg','2026-07-20 04:59:13','2026-07-20 04:59:13',NULL);
 
 /*Table structure for table `users` */
 
@@ -335,6 +345,22 @@ CREATE TABLE `users` (
 insert  into `users`(`id`,`name`,`email`,`password`,`is_active`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values 
 (2,'Kavya','kavya@gmail.com','$2y$12$h9F00XbJulaeNd69nrNEtO7SSJB.PS0SzAGHQD.eyDCitpvkAUTEq',1,NULL,'2026-06-03 07:56:32','2026-06-12 10:38:48',NULL),
 (4,'Gaven','gaven@gmail.com','$2y$12$FjS1VGeyNYtIhI7S4yJtUOEkPvwXNJtgTY98zS8Y86mhOATvl38V2',NULL,NULL,'2026-06-12 11:57:28','2026-06-12 11:57:28',NULL);
+
+/*Table structure for table `wishlist` */
+
+DROP TABLE IF EXISTS `wishlist`;
+
+CREATE TABLE `wishlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+/*Data for the table `wishlist` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

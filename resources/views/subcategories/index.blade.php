@@ -26,9 +26,10 @@
             <table class="min-w-full divide-y divide-slate-200">
                 <thead class="bg-slate-50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500">Sr. No.</th>
-                        <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500">Image</th>
-                        <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500">Subcategory Name</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Sr. No.</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Image</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Subcategory Name</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Category Name</th>
                         <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Is Active</th>
                         <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500">Action</th>
                     </tr>
@@ -36,16 +37,17 @@
                 <tbody class="divide-y divide-slate-100 bg-white">
                     @forelse ($subcategory as $item)
                         <tr class="hover:bg-slate-50">
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600">{{ $loop->iteration }}</td>
-                            <td class="whitespace-nowrap px-6 py-4">
+                            <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600 text-center">{{ $loop->iteration }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-center">
                                 @if ($item->image)
                                     <img src="{{ asset($item->image) }}" alt="{{ $item->name }}"
-                                        class="h-10 w-10 rounded-lg object-cover">
+                                        class="h-10 w-10 rounded-lg object-cover mx-auto">
                                 @else
                                     <span class="grid h-10 w-10 place-items-center rounded-lg bg-slate-100 text-xs font-bold text-slate-400">N/A</span>
                                 @endif
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm font-semibold text-slate-950">{{ $item->name }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-semibold text-slate-950 text-center">{{ $item->name }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm font-semibold text-slate-950 text-center">{{ $item->category->name }}</td>
                             <td class="whitespace-nowrap px-6 py-4 text-center">
                                 @if ($item->is_active)
                                     <span class="inline-flex rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-bold text-emerald-700">Active</span>

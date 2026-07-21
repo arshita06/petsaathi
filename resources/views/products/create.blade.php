@@ -61,7 +61,7 @@
                     @enderror
                 </div>
 
-                <div class="mt-5">
+                <div>
                     <label for="image" class="mb-2 block text-sm font-semibold text-slate-700">Image</label>
                     <input id="image" type="file" name="image" accept="image/*"
                         class="block w-full rounded-lg border border-slate-300 text-sm text-slate-900 shadow-sm file:mr-4 file:border-0 file:bg-slate-100 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-slate-700 hover:file:bg-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">

@@ -89,7 +89,7 @@
                         </div>
 
                         {{-- Catalog (collapsible) --}}
-                        <div x-data="{ open: {{ request()->routeIs('admin.category.*', 'admin.subcategory.*') ? 'true' : 'false' }} }">
+                        <div x-data="{ open: {{ request()->routeIs('admin.category.*', 'admin.subcategory.*', 'admin.product.*') ? 'true' : 'false' }} }">
                             <button type="button" @click="open = ! open"
                                 class="group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
                                 <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-slate-100 text-slate-500 transition group-hover:bg-slate-200 group-hover:text-slate-700">
@@ -132,6 +132,16 @@
                                         <rect x="10" y="15" width="11" height="5" rx="1" />
                                     </svg>
                                     Subcategories
+                                </a>
+
+                                <a href="{{ route('admin.product.index') }}"
+                                    class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition {{ request()->routeIs('admin.product.*') ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                                    <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                                        <path d="M3 6h18" />
+                                        <path d="M16 10a4 4 0 0 1-8 0" />
+                                    </svg>
+                                    Product
                                 </a>
                             </div>
                         </div>
