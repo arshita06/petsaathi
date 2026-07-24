@@ -18,7 +18,7 @@ class User extends Authenticatable
 {
     protected $table = 'users';
     protected $guarded = ['id'];
-    
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, HasRoles, Notifiable, SoftDeletes;
 
@@ -34,8 +34,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-}   
-public function wishlist()
-{
-    return $this->hasMany(Wishlist::class);
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }
+

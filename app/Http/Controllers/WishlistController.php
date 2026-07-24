@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class WishlistController extends Controller
@@ -11,7 +14,15 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        //
+        $data['wishlists'] = Wishlist::with(['product', 'user'])->whereHas('product', function($q){
+            $q->where('deleted_at', null)
+            ->where('status',1);
+        })->whereHas('user', function($q){
+            $q->where('is_active', 1)
+            ->where('deleted_at', null);
+        })->get();
+        // dd($data['wishlist']);
+        return view('wishlist.index', $data);
     }
 
     /**
@@ -43,7 +54,9 @@ class WishlistController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['products'] = Product::where('status', 1)->where('deleted_at', null)->get();
+        $data['users'] = User::where('is_active', 1)->where('deleted_at', null)->get();
+        return view('wishlist.edit', $data);
     }
 
     /**

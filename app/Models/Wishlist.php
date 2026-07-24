@@ -2,22 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Wishlist extends Model
 {
     protected $table = 'wishlist';
     protected $guarded = ['id'];
 
-    use HasFactory, HasRole, Notifiable, softDeletes;
+    use HasFactory, HasRoles, Notifiable, SoftDeletes;
 
     public function product()
     {
-        return $this->belongtoMany(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function user()
     {
-        return $this ->belongaToMany(User::class, 'user_id');
+        return $this ->belongsTo(User::class, 'user_id');
     }
 }
