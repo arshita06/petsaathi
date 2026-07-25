@@ -229,6 +229,7 @@ CREATE TABLE `products` (
   `price` bigint(20) DEFAULT NULL,
   `stock` bigint(20) DEFAULT NULL,
   `image` longtext DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -238,9 +239,9 @@ CREATE TABLE `products` (
 
 /*Data for the table `products` */
 
-insert  into `products`(`id`,`subcategory_id`,`name`,`price`,`stock`,`image`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,5,'pedigree',150,20,NULL,1,'2026-07-15 15:35:55','2026-07-15 15:36:07',NULL),
-(2,6,'Rat toys',200,100,'uploads/products/1784525725_rat_toy.jpg',1,'2026-07-20 04:59:59','2026-07-20 05:35:25',NULL);
+insert  into `products`(`id`,`subcategory_id`,`name`,`price`,`stock`,`image`,`description`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,5,'pedigree',150,20,NULL,NULL,1,'2026-07-15 15:35:55','2026-07-15 15:36:07',NULL),
+(2,6,'Rat toys',200,100,'uploads/products/1784525725_rat_toy.jpg',NULL,1,'2026-07-20 04:59:59','2026-07-20 05:35:25',NULL);
 
 /*Table structure for table `role_has_permissions` */
 
@@ -332,6 +333,12 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `is_active` int(11) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `address` longtext DEFAULT NULL,
+  `country_id` int(11) DEFAULT NULL,
+  `state_id` int(11) DEFAULT NULL,
+  `city_id` int(11) DEFAULT NULL,
+  `postal_code` varchar(255) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -342,9 +349,9 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`email`,`password`,`is_active`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values 
-(2,'Kavya','kavya@gmail.com','$2y$12$h9F00XbJulaeNd69nrNEtO7SSJB.PS0SzAGHQD.eyDCitpvkAUTEq',1,NULL,'2026-06-03 07:56:32','2026-06-12 10:38:48',NULL),
-(4,'Gaven','gaven@gmail.com','$2y$12$FjS1VGeyNYtIhI7S4yJtUOEkPvwXNJtgTY98zS8Y86mhOATvl38V2',NULL,NULL,'2026-06-12 11:57:28','2026-06-12 11:57:28',NULL);
+insert  into `users`(`id`,`name`,`email`,`password`,`is_active`,`phone`,`address`,`country_id`,`state_id`,`city_id`,`postal_code`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values 
+(2,'Kavya','kavya@gmail.com','$2y$12$h9F00XbJulaeNd69nrNEtO7SSJB.PS0SzAGHQD.eyDCitpvkAUTEq',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-06-03 07:56:32','2026-06-12 10:38:48',NULL),
+(4,'Gaven','gaven@gmail.com','$2y$12$FjS1VGeyNYtIhI7S4yJtUOEkPvwXNJtgTY98zS8Y86mhOATvl38V2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-06-12 11:57:28','2026-06-12 11:57:28',NULL);
 
 /*Table structure for table `wishlist` */
 
@@ -358,9 +365,12 @@ CREATE TABLE `wishlist` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `wishlist` */
+
+insert  into `wishlist`(`id`,`user_id`,`product_id`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,2,2,'2026-07-24 11:40:23','2026-07-24 11:40:29',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
