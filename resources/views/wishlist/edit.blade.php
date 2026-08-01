@@ -102,7 +102,7 @@
                             <div class="grid grid-cols-2 gap-4 border-t border-slate-100 pt-4">
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500">City</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800">Mumbai</dd>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800">{{ $user->}}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500">State</dt>
