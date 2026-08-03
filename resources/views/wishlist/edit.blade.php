@@ -98,19 +98,18 @@
                                     <dd class="mt-0.5 text-sm font-medium text-slate-800">{{ $user->address }}</dd>
                                 </div>
                             </div>
-
                             <div class="grid grid-cols-2 gap-4 border-t border-slate-100 pt-4">
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500">City</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800">{{ $user->}}</dd>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800">{{ $user->city->name }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500">State</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800">Maharashtra</dd>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800">{{ $user->state->name }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500">Country</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800">India</dd>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800">{{ $user->country->name}}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500">Status</dt>

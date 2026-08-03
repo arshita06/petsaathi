@@ -40,7 +40,15 @@ class User extends Authenticatable
     }
     public function country()
     {
-        return $this->hasOne()
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+     public function state()
+    {
+        return $this->belongsTo(State::class, 'state_id');
     }
 }
 
