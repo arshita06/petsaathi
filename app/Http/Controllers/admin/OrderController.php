@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,7 +13,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $data['order'] = Order::with('user')->wherehas('user', function ($q){
+            $q->where('is_active', 1)
+            ->where('deleted_at', null);
+        })->get();
+        // dd($data['order']);
+        return view('Order.index', $data);
     }
 
     /**

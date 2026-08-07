@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\SubCategoryController;
@@ -17,4 +18,5 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
     Route::resource('subcategory', SubCategoryController::class);
     Route::resource('product', ProductController::class);
     Route::resource('wishlist', WishlistController::class);
+    Route::resource('order', OrderController::class);
 });
