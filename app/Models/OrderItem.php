@@ -11,7 +11,7 @@ class OrderItem extends Model
     protected $table = 'Order_items';
     protected $guarded = ['id'];
 
-    use Notifiable, HasFactory, HasRole;
+    use Notifiable, HasFactory, HasRoles;
 
     public function order()
     {

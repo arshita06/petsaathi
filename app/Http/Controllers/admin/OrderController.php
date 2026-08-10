@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -42,7 +43,9 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        return view('Order.show');
+        $data['order_items'] = OrderItem::with(['order', 'product'])->where('order_id', $id)->get();
+        // dd($data['order_items']);
+        return view('Order.show', $data);
     }
 
     /**

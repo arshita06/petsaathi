@@ -1,33 +1,9 @@
-@php
-    $orderNo = 'PS-01042';
-    $customerName = 'Aarav Mehta';
-    $customerEmail = 'aarav.mehta@example.com';
-    $customerMobile = '+91 98765 43210';
-    $paymentMethod = 'UPI';
-    $paymentStatus = 'Paid';
-    $shippingStatus = 'Ready to Ship';
-    $shippingCharge = 80;
-    $totalAmount = 1850;
-    $orderDate = '10 Aug 2026, 11:45 AM';
-    $utrNo = 'UPI48291045';
-    $address = 'B-204, Green Valley Residency, Near City Mall';
-    $cityLine = 'Ahmedabad, Gujarat, India, 380015';
-
-    $items = [
-        ['name' => 'Premium Puppy Food', 'variant' => 'Chicken and Rice, 3 kg', 'qty' => 2, 'price' => 650, 'total' => 1300],
-        ['name' => 'Soft Chew Toy', 'variant' => 'Medium size, mint blue', 'qty' => 1, 'price' => 470, 'total' => 470],
-    ];
-    $subtotal = collect($items)->sum('total');
-    $discount = 0;
-    $grandTotal = $totalAmount ?: ($subtotal + $shippingCharge - $discount);
-@endphp
-
 <x-admin-layout title="Order Details">
     <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
             <p class="text-sm font-semibold uppercase tracking-wide text-blue-600">Order Details</p>
-            <h2 class="mt-1 text-2xl font-bold text-slate-950">{{ $orderNo }}</h2>
-            <p class="mt-1 text-sm text-slate-500">Placed on {{ $orderDate }}</p>
+            <h2 class="mt-1 text-2xl font-bold text-slate-950">{{ $order['order_no'] }}</h2>
+            <p class="mt-1 text-sm text-slate-500">Placed on {{ $order['order_date'] }}</p>
         </div>
 
         <a href="{{ route('admin.order.index') }}"
@@ -48,10 +24,10 @@
             </div>
             <div class="flex flex-wrap gap-2">
                 <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
-                    Payment: {{ $paymentStatus }}
+                    Payment: {{ $order['payment_status'] }}
                 </span>
                 <span class="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">
-                    Shipping: {{ $shippingStatus }}
+                    Shipping: {{ $order['shipping_status'] }}
                 </span>
             </div>
         </div>
@@ -67,7 +43,7 @@
                     </span>
                     <div class="min-w-0">
                         <p class="text-xs font-bold uppercase text-slate-500">Customer</p>
-                        <p class="mt-1 truncate text-base font-bold text-slate-950">{{ $customerName }}</p>
+                        <p class="mt-1 truncate text-base font-bold text-slate-950">{{ $order['customer_name'] }}</p>
                     </div>
                 </div>
             </div>
@@ -82,7 +58,7 @@
                     </span>
                     <div class="min-w-0">
                         <p class="text-xs font-bold uppercase text-slate-500">Payment Method</p>
-                        <p class="mt-1 truncate text-base font-bold text-slate-950">{{ $paymentMethod }}</p>
+                        <p class="mt-1 truncate text-base font-bold text-slate-950">{{ $order['payment_method'] }}</p>
                     </div>
                 </div>
             </div>
@@ -97,7 +73,7 @@
                     </span>
                     <div class="min-w-0">
                         <p class="text-xs font-bold uppercase text-slate-500">Order Total</p>
-                        <p class="mt-1 truncate text-xl font-black text-slate-950">Rs. {{ number_format($grandTotal, 2) }}</p>
+                        <p class="mt-1 truncate text-xl font-black text-slate-950">Rs. {{ number_format($order['grand_total'], 2) }}</p>
                     </div>
                 </div>
             </div>
@@ -106,7 +82,7 @@
         <div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">UTR No.</p>
-                <p class="mt-2 break-words text-sm font-semibold text-slate-950">{{ $utrNo }}</p>
+                <p class="mt-2 break-words text-sm font-semibold text-slate-950">{{ $order['utr_no'] }}</p>
             </div>
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">Items</p>
@@ -114,11 +90,11 @@
             </div>
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">Shipping Charge</p>
-                <p class="mt-2 text-sm font-semibold text-slate-950">Rs. {{ number_format($shippingCharge, 2) }}</p>
+                <p class="mt-2 text-sm font-semibold text-slate-950">Rs. {{ number_format($order['shipping_charge'], 2) }}</p>
             </div>
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">Priority</p>
-                <p class="mt-2 text-sm font-semibold text-slate-950">Standard</p>
+                <p class="mt-2 text-sm font-semibold text-slate-950">{{ $order['priority'] }}</p>
             </div>
         </div>
     </div>
@@ -128,7 +104,7 @@
             <div class="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
                 <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
                     <h3 class="text-base font-semibold text-slate-950">Ordered Products</h3>
-                    <span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">Invoice Ready</span>
+                    <span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">{{ $order['invoice_status'] }}</span>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -142,7 +118,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 bg-white">
-                            @foreach ($items as $item)
+                            @forelse ($items as $item)
                                 <tr class="hover:bg-slate-50">
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-4">
@@ -163,7 +139,13 @@
                                     <td class="px-6 py-4 text-right text-sm text-slate-600">Rs. {{ number_format($item['price'], 2) }}</td>
                                     <td class="px-6 py-4 text-right text-sm font-bold text-slate-950">Rs. {{ number_format($item['total'], 2) }}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="px-6 py-12 text-center text-sm text-slate-500">
+                                        No products found in this order.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -175,19 +157,19 @@
                     <div class="mt-5 space-y-4">
                         <div>
                             <p class="text-xs font-bold uppercase text-slate-500">Email</p>
-                            <p class="mt-1 break-words text-sm font-semibold text-slate-900">{{ $customerEmail }}</p>
+                            <p class="mt-1 break-words text-sm font-semibold text-slate-900">{{ $order['customer_email'] }}</p>
                         </div>
                         <div>
                             <p class="text-xs font-bold uppercase text-slate-500">Mobile</p>
-                            <p class="mt-1 text-sm font-semibold text-slate-900">{{ $customerMobile }}</p>
+                            <p class="mt-1 text-sm font-semibold text-slate-900">{{ $order['customer_mobile'] }}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
                     <h3 class="text-base font-semibold text-slate-950">Shipping Address</h3>
-                    <p class="mt-5 text-sm font-semibold leading-6 text-slate-900">{{ $address }}</p>
-                    <p class="mt-2 text-sm leading-6 text-slate-600">{{ $cityLine }}</p>
+                    <p class="mt-5 text-sm font-semibold leading-6 text-slate-900">{{ $order['address'] }}</p>
+                    <p class="mt-2 text-sm leading-6 text-slate-600">{{ $order['city_line'] }}</p>
                 </div>
             </div>
         </div>
@@ -199,20 +181,20 @@
                 <div class="mt-5 space-y-3 text-sm">
                     <div class="flex justify-between gap-4 text-slate-600">
                         <span>Subtotal</span>
-                        <span class="font-semibold text-slate-900">Rs. {{ number_format($subtotal, 2) }}</span>
+                        <span class="font-semibold text-slate-900">Rs. {{ number_format($order['subtotal'], 2) }}</span>
                     </div>
                     <div class="flex justify-between gap-4 text-slate-600">
                         <span>Shipping Charge</span>
-                        <span class="font-semibold text-slate-900">Rs. {{ number_format($shippingCharge, 2) }}</span>
+                        <span class="font-semibold text-slate-900">Rs. {{ number_format($order['shipping_charge'], 2) }}</span>
                     </div>
                     <div class="flex justify-between gap-4 text-slate-600">
                         <span>Discount</span>
-                        <span class="font-semibold text-emerald-600">- Rs. {{ number_format($discount, 2) }}</span>
+                        <span class="font-semibold text-emerald-600">- Rs. {{ number_format($order['discount'], 2) }}</span>
                     </div>
                     <div class="border-t border-slate-200 pt-4">
                         <div class="flex justify-between gap-4">
                             <span class="text-base font-bold text-slate-950">Grand Total</span>
-                            <span class="text-xl font-black text-slate-950">Rs. {{ number_format($grandTotal, 2) }}</span>
+                            <span class="text-xl font-black text-slate-950">Rs. {{ number_format($order['grand_total'], 2) }}</span>
                         </div>
                     </div>
                 </div>
@@ -221,35 +203,34 @@
             <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
                 <h3 class="text-base font-semibold text-slate-950">Order Timeline</h3>
 
+                @php
+                    $timelineStyles = [
+                        'done' => ['dot' => 'bg-emerald-500 ring-emerald-100', 'title' => 'text-slate-950', 'note' => 'text-slate-500'],
+                        'current' => ['dot' => 'bg-blue-500 ring-blue-100', 'title' => 'text-slate-950', 'note' => 'text-slate-500'],
+                        'pending' => ['dot' => 'bg-slate-300 ring-slate-100', 'title' => 'text-slate-500', 'note' => 'text-slate-400'],
+                    ];
+                @endphp
+
                 <div class="mt-5 space-y-5">
-                    <div class="flex gap-3">
-                        <span class="mt-1 h-3 w-3 shrink-0 rounded-full bg-emerald-500 ring-4 ring-emerald-100"></span>
-                        <div>
-                            <p class="text-sm font-bold text-slate-950">Order confirmed</p>
-                            <p class="mt-1 text-xs text-slate-500">{{ $orderDate }}</p>
+                    @foreach ($timeline as $step)
+                        @php $style = $timelineStyles[$step['state']] ?? $timelineStyles['pending']; @endphp
+                        <div class="flex gap-3">
+                            <span class="mt-1 h-3 w-3 shrink-0 rounded-full ring-4 {{ $style['dot'] }}"></span>
+                            <div>
+                                <p class="text-sm font-bold {{ $style['title'] }}">{{ $step['title'] }}</p>
+                                <p class="mt-1 text-xs {{ $style['note'] }}">{{ $step['note'] }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex gap-3">
-                        <span class="mt-1 h-3 w-3 shrink-0 rounded-full bg-blue-500 ring-4 ring-blue-100"></span>
-                        <div>
-                            <p class="text-sm font-bold text-slate-950">{{ $shippingStatus }}</p>
-                            <p class="mt-1 text-xs text-slate-500">Packing slip generated</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-3">
-                        <span class="mt-1 h-3 w-3 shrink-0 rounded-full bg-slate-300 ring-4 ring-slate-100"></span>
-                        <div>
-                            <p class="text-sm font-bold text-slate-500">Out for delivery</p>
-                            <p class="mt-1 text-xs text-slate-400">Pending courier pickup</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
 
-            <div class="rounded-lg border border-amber-200 bg-amber-50 p-6 shadow-sm">
-                <p class="text-sm font-bold text-amber-900">Shipping Remark</p>
-                <p class="mt-2 text-sm leading-6 text-amber-800">Please call before delivery and handle pet food packet carefully.</p>
-            </div>
+            @if (!empty($order['remark']))
+                <div class="rounded-lg border border-amber-200 bg-amber-50 p-6 shadow-sm">
+                    <p class="text-sm font-bold text-amber-900">Shipping Remark</p>
+                    <p class="mt-2 text-sm leading-6 text-amber-800">{{ $order['remark'] }}</p>
+                </div>
+            @endif
         </div>
     </div>
 </x-admin-layout>
