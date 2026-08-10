@@ -13,7 +13,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data['order'] = Order::with('user')->wherehas('user', function ($q){
+        $data['orders'] = Order::with('user')->wherehas('user', function ($q){
             $q->where('is_active', 1)
             ->where('deleted_at', null);
         })->get();
@@ -42,7 +42,7 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('Order.show');
     }
 
     /**
