@@ -43,8 +43,8 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        $data['order_items'] = Order::with(['orderItem', 'orderItem.product'])->find($id);
-        // dd($data['order_items']);
+        $data['order'] = Order::with(['orderItem', 'orderItem.product', 'orderItem.product.subcategory'])->find($id);
+        // dd($data['order']);
         return view('Order.show', $data);
     }
 

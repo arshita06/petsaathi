@@ -86,15 +86,15 @@
             </div>
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">Items</p>
-                <p class="mt-2 text-sm font-semibold text-slate-950">{{ count($items) }} Products</p>
+                <p class="mt-2 text-sm font-semibold text-slate-950">{{ count($order->orderItem) }} Products</p>
             </div>
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">Shipping Charge</p>
-                <p class="mt-2 text-sm font-semibold text-slate-950">Rs. {{ number_format($order['shipping_charge'], 2) }}</p>
+                <p class="mt-2 text-sm font-semibold text-slate-950">Rs. {{ number_format($order->total_shipping_charge, 2) }}</p>
             </div>
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">Priority</p>
-                <p class="mt-2 text-sm font-semibold text-slate-950">{{ $order['priority'] }}</p>
+                {{-- <p class="mt-2 text-sm font-semibold text-slate-950">{{ $order['priority'] }}</p> --}}
             </div>
         </div>
     </div>
@@ -104,7 +104,7 @@
             <div class="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
                 <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
                     <h3 class="text-base font-semibold text-slate-950">Ordered Products</h3>
-                    <span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">{{ $order['invoice_status'] }}</span>
+                    {{-- <span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">{{ $order['invoice_status'] }}</span> --}}
                 </div>
 
                 <div class="overflow-x-auto">
@@ -118,7 +118,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 bg-white">
-                            @forelse ($items as $item)
+                            @forelse ($order->orderItem as $item)
                                 <tr class="hover:bg-slate-50">
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-4">
@@ -130,14 +130,14 @@
                                                 </svg>
                                             </div>
                                             <div>
-                                                <p class="font-semibold text-slate-950">{{ $item['name'] }}</p>
-                                                <p class="mt-1 text-sm text-slate-500">{{ $item['variant'] }}</p>
+                                                <p class="font-semibold text-slate-950">{{ $item->product->name }}</p>
+                                                <p class="mt-1 text-sm text-slate-500">{{ $item->product->subcategory->name }}</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-center text-sm font-semibold text-slate-700">{{ $item['qty'] }}</td>
-                                    <td class="px-6 py-4 text-right text-sm text-slate-600">Rs. {{ number_format($item['price'], 2) }}</td>
-                                    <td class="px-6 py-4 text-right text-sm font-bold text-slate-950">Rs. {{ number_format($item['total'], 2) }}</td>
+                                    <td class="px-6 py-4 text-center text-sm font-semibold text-slate-700">{{ $item->quantity }}</td>
+                                    <td class="px-6 py-4 text-right text-sm text-slate-600">Rs. {{ number_format($item->product->price, 2) }}</td>
+                                    <td class="px-6 py-4 text-right text-sm font-bold text-slate-950">Rs. {{ number_format($item->product->price * $item->quantity , 2) }}</td>
                                 </tr>
                             @empty
                                 <tr>
@@ -157,19 +157,19 @@
                     <div class="mt-5 space-y-4">
                         <div>
                             <p class="text-xs font-bold uppercase text-slate-500">Email</p>
-                            <p class="mt-1 break-words text-sm font-semibold text-slate-900">{{ $order['customer_email'] }}</p>
+                            <p class="mt-1 break-words text-sm font-semibold text-slate-900">{{ $order->shipping_email }}</p>
                         </div>
                         <div>
                             <p class="text-xs font-bold uppercase text-slate-500">Mobile</p>
-                            <p class="mt-1 text-sm font-semibold text-slate-900">{{ $order['customer_mobile'] }}</p>
+                            <p class="mt-1 text-sm font-semibold text-slate-900">{{ $order->shipping_mobile }}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
                     <h3 class="text-base font-semibold text-slate-950">Shipping Address</h3>
-                    <p class="mt-5 text-sm font-semibold leading-6 text-slate-900">{{ $order['address'] }}</p>
-                    <p class="mt-2 text-sm leading-6 text-slate-600">{{ $order['city_line'] }}</p>
+                    <p class="mt-5 text-sm font-semibold leading-6 text-slate-900">{{ $order->shipping_address }}</p>
+                    <p class="mt-2 text-sm font-semibold leading-6 text-slate-900">{{ $order->shipping_city }}</p>
                 </div>
             </div>
         </div>
@@ -181,20 +181,22 @@
                 <div class="mt-5 space-y-3 text-sm">
                     <div class="flex justify-between gap-4 text-slate-600">
                         <span>Subtotal</span>
-                        <span class="font-semibold text-slate-900">Rs. {{ number_format($order['subtotal'], 2) }}</span>
+                        <span class="font-semibold text-slate-900">Rs. {{ number_format($order->orderItem->sum(function ($item) {
+                            return $item->product->price * $item->quantity ;
+                        }), 2) }}</span>
                     </div>
                     <div class="flex justify-between gap-4 text-slate-600">
                         <span>Shipping Charge</span>
-                        <span class="font-semibold text-slate-900">Rs. {{ number_format($order['shipping_charge'], 2) }}</span>
+                        <span class="font-semibold text-slate-900">Rs. {{ number_format( $order->total_shipping_charge, 2) }}</span>
                     </div>
-                    <div class="flex justify-between gap-4 text-slate-600">
+                    {{-- <div class="flex justify-between gap-4 text-slate-600">
                         <span>Discount</span>
                         <span class="font-semibold text-emerald-600">- Rs. {{ number_format($order['discount'], 2) }}</span>
-                    </div>
+                    </div> --}}
                     <div class="border-t border-slate-200 pt-4">
                         <div class="flex justify-between gap-4">
                             <span class="text-base font-bold text-slate-950">Grand Total</span>
-                            <span class="text-xl font-black text-slate-950">Rs. {{ number_format($order['grand_total'], 2) }}</span>
+                            <span class="text-xl font-black text-slate-950">Rs. {{ number_format(($item->product->price * $item->quantity) + $order->total_shipping_charge, 2) }}</span>
                         </div>
                     </div>
                 </div>
@@ -211,7 +213,7 @@
                     ];
                 @endphp
 
-                <div class="mt-5 space-y-5">
+                {{-- <div class="mt-5 space-y-5">
                     @foreach ($timeline as $step)
                         @php $style = $timelineStyles[$step['state']] ?? $timelineStyles['pending']; @endphp
                         <div class="flex gap-3">
@@ -222,7 +224,7 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
+                </div> --}}
             </div>
 
             @if (!empty($order['remark']))
