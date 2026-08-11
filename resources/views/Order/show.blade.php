@@ -2,8 +2,8 @@
     <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
             <p class="text-sm font-semibold uppercase tracking-wide text-blue-600">Order Details</p>
-            <h2 class="mt-1 text-2xl font-bold text-slate-950">{{ $order['order_no'] }}</h2>
-            <p class="mt-1 text-sm text-slate-500">Placed on {{ $order['order_date'] }}</p>
+            <h2 class="mt-1 text-2xl font-bold text-slate-950">{{ $order->id }}</h2>
+            <p class="mt-1 text-sm text-slate-500">Placed on {{ $order->created_at }}</p>
         </div>
 
         <a href="{{ route('admin.order.index') }}"
@@ -24,10 +24,10 @@
             </div>
             <div class="flex flex-wrap gap-2">
                 <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
-                    Payment: {{ $order['payment_status'] }}
+                    Payment: {{ $order->payment_status }}
                 </span>
                 <span class="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">
-                    Shipping: {{ $order['shipping_status'] }}
+                    Shipping: {{ $order->shipping_status }}
                 </span>
             </div>
         </div>
@@ -43,7 +43,7 @@
                     </span>
                     <div class="min-w-0">
                         <p class="text-xs font-bold uppercase text-slate-500">Customer</p>
-                        <p class="mt-1 truncate text-base font-bold text-slate-950">{{ $order['customer_name'] }}</p>
+                        <p class="mt-1 truncate text-base font-bold text-slate-950">{{ $order->shipping_name }}</p>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                     </span>
                     <div class="min-w-0">
                         <p class="text-xs font-bold uppercase text-slate-500">Payment Method</p>
-                        <p class="mt-1 truncate text-base font-bold text-slate-950">{{ $order['payment_method'] }}</p>
+                        <p class="mt-1 truncate text-base font-bold text-slate-950">{{ $order->payment_method }}</p>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                     </span>
                     <div class="min-w-0">
                         <p class="text-xs font-bold uppercase text-slate-500">Order Total</p>
-                        <p class="mt-1 truncate text-xl font-black text-slate-950">Rs. {{ number_format($order['grand_total'], 2) }}</p>
+                        <p class="mt-1 truncate text-xl font-black text-slate-950">Rs. {{ number_format($order->total_amount, 2) }}</p>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
         <div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">UTR No.</p>
-                <p class="mt-2 break-words text-sm font-semibold text-slate-950">{{ $order['utr_no'] }}</p>
+                <p class="mt-2 break-words text-sm font-semibold text-slate-950">{{ $order->utr_no }}</p>
             </div>
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">Items</p>
