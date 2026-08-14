@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        <div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             <div class="rounded-lg border border-slate-200 bg-white p-4">
                 <p class="text-xs font-bold uppercase text-slate-500">UTR No.</p>
                 <p class="mt-2 break-words text-sm font-semibold text-slate-950">{{ $order->utr_no }}</p>
@@ -92,10 +92,10 @@
                 <p class="text-xs font-bold uppercase text-slate-500">Shipping Charge</p>
                 <p class="mt-2 text-sm font-semibold text-slate-950">Rs. {{ number_format($order->total_shipping_charge, 2) }}</p>
             </div>
-            <div class="rounded-lg border border-slate-200 bg-white p-4">
-                <p class="text-xs font-bold uppercase text-slate-500">Priority</p>
+            {{-- <div class="rounded-lg border border-slate-200 bg-white p-4"> --}}
+                {{-- <p class="text-xs font-bold uppercase text-slate-500">Priority</p> --}}
                 {{-- <p class="mt-2 text-sm font-semibold text-slate-950">{{ $order['priority'] }}</p> --}}
-            </div>
+            {{-- </div> --}}
         </div>
     </div>
 
@@ -177,6 +177,11 @@
         <div class="space-y-6">
             <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
                 <h3 class="text-base font-semibold text-slate-950">Payment Summary</h3>
+                @php
+                    $subTotal = $order->orderItem->sum(function ($item) {
+                            return $item->product->price * $item->quantity ;
+                        })
+                @endphp
 
                 <div class="mt-5 space-y-3 text-sm">
                     <div class="flex justify-between gap-4 text-slate-600">
@@ -196,22 +201,22 @@
                     <div class="border-t border-slate-200 pt-4">
                         <div class="flex justify-between gap-4">
                             <span class="text-base font-bold text-slate-950">Grand Total</span>
-                            <span class="text-xl font-black text-slate-950">Rs. {{ number_format(($item->product->price * $item->quantity) + $order->total_shipping_charge, 2) }}</span>
+                            <span class="text-xl font-black text-slate-950">Rs. {{ number_format( $subTotal + $order->total_shipping_charge, 2) }}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-                <h3 class="text-base font-semibold text-slate-950">Order Timeline</h3>
+            {{-- <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm"> --}}
+                {{-- <h3 class="text-base font-semibold text-slate-950">Order Timeline</h3> --}}
 
-                @php
+                {{-- @php
                     $timelineStyles = [
                         'done' => ['dot' => 'bg-emerald-500 ring-emerald-100', 'title' => 'text-slate-950', 'note' => 'text-slate-500'],
                         'current' => ['dot' => 'bg-blue-500 ring-blue-100', 'title' => 'text-slate-950', 'note' => 'text-slate-500'],
                         'pending' => ['dot' => 'bg-slate-300 ring-slate-100', 'title' => 'text-slate-500', 'note' => 'text-slate-400'],
                     ];
-                @endphp
+                @endphp --}}
 
                 {{-- <div class="mt-5 space-y-5">
                     @foreach ($timeline as $step)
@@ -225,12 +230,12 @@
                         </div>
                     @endforeach
                 </div> --}}
-            </div>
+            {{-- </div> --}}
 
-            @if (!empty($order['remark']))
+            @if (!empty($order->shipping_remark))
                 <div class="rounded-lg border border-amber-200 bg-amber-50 p-6 shadow-sm">
                     <p class="text-sm font-bold text-amber-900">Shipping Remark</p>
-                    <p class="mt-2 text-sm leading-6 text-amber-800">{{ $order['remark'] }}</p>
+                    <p class="mt-2 text-sm leading-6 text-amber-800">{{ $order->shipping_remark }}</p>
                 </div>
             @endif
         </div>
