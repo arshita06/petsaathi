@@ -46,7 +46,11 @@ class WishlistController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data['products'] = Product::with('wishlist')->wherehas('wishlist', function ($query){
+            $query->where('deleted_at', null);
+        })->get();
+        $data['users'] = User::where('is_active', 1)->where('deleted_at', null)->get();
+        return view('wishlist.show', $data);
     }
 
     /**
@@ -54,9 +58,7 @@ class WishlistController extends Controller
      */
     public function edit(string $id)
     {
-        $data['products'] = Product::where('status', 1)->where('deleted_at', null)->get();
-        $data['users'] = User::where('is_active', 1)->where('deleted_at', null)->get();
-        return view('wishlist.edit', $data);
+        //
     }
 
     /**

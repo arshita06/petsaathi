@@ -28,6 +28,7 @@ class ProductRequest extends FormRequest
             'is_active' => 'required|boolean',              
             'stock' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
+            'description' => 'nullable|string|max:1000',
 
         ];
     }

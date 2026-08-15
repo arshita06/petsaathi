@@ -58,10 +58,18 @@
 
                 <div class="p-6">
                     {{-- Customer identity --}}
+
                     @foreach($users as $user)
+                        @php
+                            $name = trim($user->name);
+                            $parts = preg_split('/\s+/', $name);
+                            $initials = strtoupper(
+                                count($parts) > 1
+                                ? substr($parts[0], 0, 1). substr(end($parts), 0, 1): substr($parts[0], 0, 2));
+                        @endphp
                         <div class="mb-6 flex items-center gap-4 rounded-xl bg-slate-50 p-4">
                             <div class="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-lg font-bold text-white shadow-sm">
-                                JD
+                                {{ $initials }}
                             </div>
                             <div class="min-w-0">
                                 <p class="truncate text-base font-bold text-slate-900">{{ $user->name }}</p>
@@ -127,72 +135,81 @@
         {{-- Card 2: Product Details --}}
         <div class="lg:col-span-3">
             <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                <div class="flex items-center gap-2 border-b border-slate-200 px-6 py-4">
-                    <span class="grid h-8 w-8 place-items-center rounded-lg bg-indigo-50 text-indigo-600">
-                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                            <path d="M3 6h18" />
-                            <path d="M16 10a4 4 0 0 1-8 0" />
-                        </svg>
-                    </span>
-                    <h3 class="text-base font-semibold text-slate-950">Product Details</h3>
-                    <span class="ml-auto inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
-                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                        In Stock
-                    </span>
-                </div>
+                @foreach($products as $product)
+                    <div class="flex items-center gap-2 border-b border-slate-200 px-6 py-4">
+                        <span class="grid h-8 w-8 place-items-center rounded-lg bg-indigo-50 text-indigo-600">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                                <path d="M3 6h18" />
+                                <path d="M16 10a4 4 0 0 1-8 0" />
+                            </svg>
+                        </span>
+                        <h3 class="text-base font-semibold text-slate-950">Product Details</h3>
+                        @if (!empty($product->stock))
+                            <span class="ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
+                                <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500"></span>
+                                In Stock
+                            </span>
+                        @else
+                            <span class="ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-bold text-rose-700">
+                                <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500"></span>
+                                Out of Stock
+                            </span>
+                        @endif
+                    </div>
 
-                <div class="p-6">
-                    <div class="flex flex-col gap-6 sm:flex-row">
-                        {{-- Product Image --}}
-                        <div class="shrink-0">
-                            <div class="relative">
-                                <img src="https://placehold.co/220x220?text=Product"
-                                    alt="Product image"
-                                    class="h-48 w-48 rounded-xl border border-slate-200 object-cover shadow-sm">
-                                <span class="absolute left-2 top-2 inline-flex items-center rounded-full bg-blue-600 px-2.5 py-0.5 text-[11px] font-bold text-white shadow">Pet Food</span>
+                    <div class="p-6">
+                        <div class="flex flex-col gap-6 sm:flex-row">
+                            {{-- Product Image --}}
+                            <div class="shrink-0">
+                                <div class="relative">
+                                    <img src="https://placehold.co/220x220?text=Product"
+                                        alt="Product image"
+                                        class="h-48 w-48 rounded-xl border border-slate-200 object-cover shadow-sm">
+                                    <span class="absolute left-2 top-2 inline-flex items-center rounded-full bg-blue-600 px-2.5 py-0.5 text-[11px] font-bold text-white shadow">Pet Food</span>
+                                </div>
+                            </div>
+
+                            {{-- Product Info --}}
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-slate-900">{{ $product->name }}</h4>
+                                <p class="mt-0.5 text-sm text-slate-500">by <span class="font-semibold text-slate-700">PetSaathi</span></p>
+
+                                <div class="mt-3 flex items-baseline gap-2">
+                                    <span class="text-2xl font-bold text-slate-900">₹1,299.00</span>
+                                    <span class="text-sm font-medium text-slate-400 line-through">₹1,599.00</span>
+                                </div>
+
+                                <div class="mt-5 grid grid-cols-2 gap-x-6 gap-y-4">
+                                    <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
+                                        <dt class="text-xs font-bold uppercase text-slate-500">Category</dt>
+                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900">Pet Food</dd>
+                                    </div>
+                                    <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
+                                        <dt class="text-xs font-bold uppercase text-slate-500">Added to Wishlist</dt>
+                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900">24 Jul 2026</dd>
+                                    </div>
+                                    <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
+                                        <dt class="text-xs font-bold uppercase text-slate-500">Product Status</dt>
+                                        <dd class="mt-0.5">
+                                            <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">Active</span>
+                                        </dd>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        {{-- Product Info --}}
-                        <div class="flex-1">
-                            <h4 class="text-lg font-bold text-slate-900">Premium Dog Food</h4>
-                            <p class="mt-0.5 text-sm text-slate-500">by <span class="font-semibold text-slate-700">PetSaathi</span></p>
-
-                            <div class="mt-3 flex items-baseline gap-2">
-                                <span class="text-2xl font-bold text-slate-900">₹1,299.00</span>
-                                <span class="text-sm font-medium text-slate-400 line-through">₹1,599.00</span>
-                            </div>
-
-                            <div class="mt-5 grid grid-cols-2 gap-x-6 gap-y-4">
-                                <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
-                                    <dt class="text-xs font-bold uppercase text-slate-500">Category</dt>
-                                    <dd class="mt-0.5 text-sm font-semibold text-slate-900">Pet Food</dd>
-                                </div>
-                                <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
-                                    <dt class="text-xs font-bold uppercase text-slate-500">Added to Wishlist</dt>
-                                    <dd class="mt-0.5 text-sm font-semibold text-slate-900">24 Jul 2026</dd>
-                                </div>
-                                <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
-                                    <dt class="text-xs font-bold uppercase text-slate-500">Product Status</dt>
-                                    <dd class="mt-0.5">
-                                        <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">Active</span>
-                                    </dd>
-                                </div>
-                            </div>
+                        {{-- Product Description --}}
+                        <div class="mt-6 border-t border-slate-200 pt-6">
+                            <dt class="text-xs font-bold uppercase text-slate-500">Description</dt>
+                            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nutrient-rich, balanced
+                                formula crafted for daily health and vitality. Made with premium ingredients to
+                                support a healthy coat, strong bones, and improved digestion for pets of all ages.
+                            </p>
                         </div>
                     </div>
-
-                    {{-- Product Description --}}
-                    <div class="mt-6 border-t border-slate-200 pt-6">
-                        <dt class="text-xs font-bold uppercase text-slate-500">Description</dt>
-                        <p class="mt-2 text-sm leading-relaxed text-slate-600">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nutrient-rich, balanced
-                            formula crafted for daily health and vitality. Made with premium ingredients to
-                            support a healthy coat, strong bones, and improved digestion for pets of all ages.
-                        </p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

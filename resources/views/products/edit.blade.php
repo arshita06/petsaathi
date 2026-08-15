@@ -21,7 +21,7 @@
             @csrf
             @method('PUT')
             <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-                <div class="mt-5">
+                <div>
                     <label for="name" class="mb-2 block text-sm font-semibold text-slate-700">Product Name</label>
                     <input id="name" type="text" name="name" value="{{ old('name', $product->name) }}"
                         class="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
@@ -65,7 +65,7 @@
                 </div>
 
 
-                <div class="mt-5">
+                <div>
                     <label for="image" class="mb-2 block text-sm font-semibold text-slate-700">Image</label>
 
                     @if ($product->image)
@@ -103,9 +103,19 @@
                     @enderror
                 </div>
 
+                <div class="md:col-span-2">
+                    <label for="description" class="mb-2 block text-sm font-semibold text-slate-700">Description</label>
+                    <textarea id="description" name="description" rows="4"
+                        class="block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
+                        placeholder="Example: Complete and balanced nutrition for adult dogs.">{{ old('description', $product->description) }}</textarea>
+                    @error('description')
+                        <p class="mt-2 text-sm font-semibold text-rose-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <div>
                     <label class="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                        <input type="checkbox" name="is_active" value="1" @checked(old('is_active', $product->is_active))
+                        <input type="checkbox" name="is_active" value="1" @checked(old('is_active', $product->status))
                             class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
                         Active
                     </label>

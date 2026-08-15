@@ -49,6 +49,7 @@ class ProductController extends Controller
         $product->subcategory_id = $request->subcategory_id;
         $product->stock = $request->stock;
         $product->price = $request->price;
+        $product->description = $request->description;
         $product->status = $request->is_active;
         if($request->hasFile('image')){
             $image = $request->file('image');
@@ -89,10 +90,12 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
+        // dd($request->all());
         $product->name = $request->name;
         $product->subcategory_id = $request->subcategory_id;
         $product->stock = $request->stock;
         $product->price = $request->price;
+        $product->description = $request->description;
         $product->status = $request->is_active;
         if($request->hasFile('image')){
             if($product->image && file_exists(public_path($product->image))){
