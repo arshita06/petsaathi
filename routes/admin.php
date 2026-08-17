@@ -19,4 +19,5 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
     Route::resource('product', ProductController::class);
     Route::resource('wishlist', WishlistController::class);
     Route::resource('order', OrderController::class);
+    Route::resource('settings', SettingController::class);
 });

@@ -77,7 +77,7 @@
                             </div>
                             <span class="ml-auto inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
                                 <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                                {{ $user->is_active }}
+                                {{  (!empty($user->is_active) ? 'Active' : 'Not Active') }}
                             </span>
                         </div>
 
@@ -122,7 +122,7 @@
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500">Status</dt>
                                     <dd class="mt-1">
-                                        <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">Active</span>
+                                        <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">{{ (!empty($user->is_active) ? 'Active' : 'Not Active') }}</span>
                                     </dd>
                                 </div>
                             </div>
@@ -136,6 +136,7 @@
         <div class="lg:col-span-3">
             <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                 @foreach($products as $product)
+                {{-- @dd($product->dicount_price) --}}
                     <div class="flex items-center gap-2 border-b border-slate-200 px-6 py-4">
                         <span class="grid h-8 w-8 place-items-center rounded-lg bg-indigo-50 text-indigo-600">
                             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -163,10 +164,10 @@
                             {{-- Product Image --}}
                             <div class="shrink-0">
                                 <div class="relative">
-                                    <img src="https://placehold.co/220x220?text=Product"
-                                        alt="Product image"
+                                    <img src="{{ asset( $product->image )}}"
+                                        alt={{ $product->name }}
                                         class="h-48 w-48 rounded-xl border border-slate-200 object-cover shadow-sm">
-                                    <span class="absolute left-2 top-2 inline-flex items-center rounded-full bg-blue-600 px-2.5 py-0.5 text-[11px] font-bold text-white shadow">Pet Food</span>
+                                    <span class="absolute left-2 top-2 inline-flex items-center rounded-full bg-blue-600 px-2.5 py-0.5 text-[11px] font-bold text-white shadow">{{ $product->subcategory->name}}</span>
                                 </div>
                             </div>
 
@@ -176,23 +177,23 @@
                                 <p class="mt-0.5 text-sm text-slate-500">by <span class="font-semibold text-slate-700">PetSaathi</span></p>
 
                                 <div class="mt-3 flex items-baseline gap-2">
-                                    <span class="text-2xl font-bold text-slate-900">₹1,299.00</span>
-                                    <span class="text-sm font-medium text-slate-400 line-through">₹1,599.00</span>
+                                    <span class="text-2xl font-bold text-slate-900">{{ $product->discount_price }}</span>
+                                    <span class="text-sm font-medium text-slate-400 line-through">{{ $product->price }}</span>
                                 </div>
 
                                 <div class="mt-5 grid grid-cols-2 gap-x-6 gap-y-4">
                                     <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
                                         <dt class="text-xs font-bold uppercase text-slate-500">Category</dt>
-                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900">Pet Food</dd>
+                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900">{{ $product->subcategory->category->name }}</dd>
                                     </div>
                                     <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
                                         <dt class="text-xs font-bold uppercase text-slate-500">Added to Wishlist</dt>
-                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900">24 Jul 2026</dd>
+                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900">{{ $product->created_at}}</dd>
                                     </div>
                                     <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
                                         <dt class="text-xs font-bold uppercase text-slate-500">Product Status</dt>
                                         <dd class="mt-0.5">
-                                            <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">Active</span>
+                                            <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">{{ (!empty($product->status) ? 'Active': 'Not Active') }}</span>
                                         </dd>
                                     </div>
                                 </div>
@@ -203,9 +204,7 @@
                         <div class="mt-6 border-t border-slate-200 pt-6">
                             <dt class="text-xs font-bold uppercase text-slate-500">Description</dt>
                             <p class="mt-2 text-sm leading-relaxed text-slate-600">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nutrient-rich, balanced
-                                formula crafted for daily health and vitality. Made with premium ingredients to
-                                support a healthy coat, strong bones, and improved digestion for pets of all ages.
+                                {{ $product->description }}
                             </p>
                         </div>
                     </div>
