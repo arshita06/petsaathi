@@ -19,7 +19,7 @@ class OrderController extends Controller
             ->where('deleted_at', null);
         })->get();
         // dd($data['order']);
-        return view('Order.index', $data);
+        return view('admin.Order.index', $data);
     }
 
     /**
@@ -45,7 +45,7 @@ class OrderController extends Controller
     {
         $data['order'] = Order::with(['orderItem', 'orderItem.product', 'orderItem.product.subcategory'])->find($id);
         // dd($data['order']);
-        return view('Order.show', $data);
+        return view('admin.Order.show', $data);
     }
 
     /**

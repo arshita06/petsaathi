@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\Category;
 use App\Models\Product;
@@ -35,7 +35,7 @@ class ProductController extends Controller
     {
         $data['subcategories'] = SubCategory::where('is_active',1)->where('deleted_at', null)->pluck('name', 'id');
         $data['categories'] = Category::where('is_active',1)->where('deleted_at', null)->pluck('name', 'id');
-        return view('products.create', $data);
+        return view('admin.products.create', $data);
     }
 
     /**
