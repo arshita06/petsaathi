@@ -48504,7 +48504,7 @@ CREATE TABLE `products` (
   `subcategory_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `price` bigint(20) DEFAULT NULL,
-  `dicount_price` bigint(20) DEFAULT NULL,
+  `discount_price` bigint(20) DEFAULT NULL,
   `stock` bigint(20) DEFAULT NULL,
   `image` longtext DEFAULT NULL,
   `description` longtext DEFAULT NULL,
@@ -48513,13 +48513,14 @@ CREATE TABLE `products` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `products` */
 
-insert  into `products`(`id`,`subcategory_id`,`name`,`price`,`dicount_price`,`stock`,`image`,`description`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,5,'pedigree',150,NULL,20,'uploads/products/1786776535_dummy.png','**Pedigree** is a record of an animal’s ancestry and family history. It shows information about its parents, grandparents, and other ancestors, and is commonly used to verify breed, lineage, and inherited characteristics.',1,'2026-07-15 15:35:55','2026-08-15 06:48:55',NULL),
-(2,6,'Rat toys',200,NULL,100,'uploads/products/1784525725_rat_toy.jpg','Rat toys are safe and engaging toys designed to keep pet rats active, entertained, and mentally stimulated.',1,'2026-07-20 04:59:59','2026-08-15 06:50:04',NULL);
+insert  into `products`(`id`,`subcategory_id`,`name`,`price`,`discount_price`,`stock`,`image`,`description`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,5,'pedigree',500,450,20,'uploads/products/1786776535_dummy.png','**Pedigree** is a record of an animal’s ancestry and family history. It shows information about its parents, grandparents, and other ancestors, and is commonly used to verify breed, lineage, and inherited characteristics.',1,'2026-07-15 15:35:55','2026-08-15 06:48:55',NULL),
+(2,6,'Rat toys',800,650,150,'uploads/products/1784525725_rat_toy.jpg','Rat toys are safe and engaging toys designed to keep pet rats active, entertained, and mentally stimulated.',1,'2026-07-20 04:59:59','2026-08-15 06:50:04',NULL),
+(3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL);
 
 /*Table structure for table `role_has_permissions` */
 
@@ -48576,7 +48577,25 @@ CREATE TABLE `sessions` (
 /*Data for the table `sessions` */
 
 insert  into `sessions`(`id`,`user_id`,`ip_address`,`user_agent`,`payload`,`last_activity`) values 
-('tEdDtre4RJRQNVEvyBsZ0WT0wWnXf46oRXLI704U',2,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36','eyJfdG9rZW4iOiIxQklOYWo5SHZwUFFhMEdHV3JkUU9jVFR1VUtjeEZveUhSUDRyQjE0IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwXC9hZG1pblwvb3JkZXIiLCJyb3V0ZSI6ImFkbWluLm9yZGVyLmluZGV4In0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjJ9',1786304650);
+('hLKUAYi2TJMGvOvj4WFCXGl0KekR25LTqnEHYOMG',2,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJSOW5UZlJycmlXS3BmNXBmTUFqcVU4dDdrS0pFUXlsYmRpeDA1UFlCIiwidXJsIjpbXSwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwXC9hZG1pblwvc2V0dGluZ3MiLCJyb3V0ZSI6ImFkbWluLnNldHRpbmdzLmluZGV4In0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjJ9',1786905361);
+
+/*Table structure for table `settings` */
+
+DROP TABLE IF EXISTS `settings`;
+
+CREATE TABLE `settings` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(191) NOT NULL,
+  `value` varchar(191) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+/*Data for the table `settings` */
+
+insert  into `settings`(`id`,`key`,`value`,`created_at`,`updated_at`) values 
+(1,'PetSaathi','OurPets@petsaathi.com',NULL,NULL);
 
 /*Table structure for table `states` */
 
