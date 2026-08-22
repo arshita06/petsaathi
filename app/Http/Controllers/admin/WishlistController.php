@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\Product;
 use App\Models\User;
@@ -22,7 +22,7 @@ class WishlistController extends Controller
             ->where('deleted_at', null);
         })->get();
         // dd($data['wishlist']);
-        return view('wishlist.index', $data);
+        return view('admin.wishlist.index', $data);
     }
 
     /**
@@ -53,7 +53,7 @@ class WishlistController extends Controller
             ->where('deleted_at', null);
         })->get();
         $data['users'] = User::where('is_active', 1)->where('deleted_at', null)->get();
-        return view('wishlist.show', $data);
+        return view('admin.wishlist.show', $data);
     }
 
     /**

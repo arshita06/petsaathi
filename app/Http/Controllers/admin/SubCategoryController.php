@@ -17,7 +17,7 @@ class SubCategoryController extends Controller
     {
         $data['subcategory'] = SubCategory::all();
         // dd($data);
-        return view('subcategories.index', $data);
+        return view('admin.subcategories.index', $data);
 
     }
 
@@ -29,7 +29,7 @@ class SubCategoryController extends Controller
         $data['categories'] = Category::with('subcategory')->where('is_active',1)->where('deleted_at', null)->get();
         // dd( $data['categories']);
 
-        return view('subcategories.create', $data);
+        return view('admin.subcategories.create', $data);
     }
 
     /**
@@ -75,7 +75,7 @@ class SubCategoryController extends Controller
         $data['subcategory'] = SubCategory::findorFail($id);
         $data['categories'] = Category::with('subcategory')->get();
 
-        return view('subcategories.edit', $data);
+        return view('admin.subcategories.edit', $data);
 
     }
 

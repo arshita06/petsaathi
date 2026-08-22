@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::with('roles')->get();
 
-        return view('User.index', compact('users'));
+        return view('admin.User.index', compact('users'));
     }
 
     /**
@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         $roles = Role::orderBy('name')->get();
 
-        return view('User.create', compact('roles'));
+        return view('admin.User.create', compact('roles'));
     }
 
     /**
@@ -75,7 +75,7 @@ class UserController extends Controller
         $roles = Role::orderBy('name')->get();
         $user->load('roles');
 
-        return view('User.edit', compact('user', 'roles'));
+        return view('admin.User.edit', compact('user', 'roles'));
     }
 
     /**
