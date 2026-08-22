@@ -1,19 +1,19 @@
 <x-admin-layout title="View Wishlist">
     {{-- Breadcrumb --}}
-    <nav class="mb-4 flex items-center gap-2 text-sm font-medium text-slate-500">
-        <a href="{{ route('dashboard') }}" class="hover:text-slate-900">Dashboard</a>
-        <svg class="h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <nav class="mb-4 flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400">
+        <a href="{{ route('dashboard') }}" class="hover:text-slate-900 dark:hover:text-slate-100">Dashboard</a>
+        <svg class="h-4 w-4 text-slate-400 dark:text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="m9 18 6-6-6-6" />
         </svg>
-        <a href="{{ route('admin.wishlist.index') }}" class="hover:text-slate-900">Wishlist</a>
-        <svg class="h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href="{{ route('admin.wishlist.index') }}" class="hover:text-slate-900 dark:hover:text-slate-100">Wishlist</a>
+        <svg class="h-4 w-4 text-slate-400 dark:text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="m9 18 6-6-6-6" />
         </svg>
-        <span class="text-slate-900">View</span>
+        <span class="text-slate-900 dark:text-slate-100">View</span>
     </nav>
 
     {{-- Hero header --}}
-    <div class="relative mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 p-6 shadow-sm sm:p-8">
+    <div class="relative mb-6 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 p-6 shadow-sm sm:p-8">
         <div class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10"></div>
         <div class="pointer-events-none absolute -bottom-16 right-24 h-48 w-48 rounded-full bg-white/5"></div>
 
@@ -32,7 +32,7 @@
             </div>
 
             <a href="{{ route('admin.wishlist.index') }}"
-                class="inline-flex items-center justify-center gap-2 rounded-lg bg-white/95 px-4 py-2.5 text-sm font-semibold text-slate-800 shadow-sm ring-1 ring-white/40 hover:bg-white">
+                class="inline-flex items-center justify-center gap-2 rounded-lg bg-white/95 dark:bg-slate-900/95 px-4 py-2.5 text-sm font-semibold text-slate-800 dark:text-slate-200 shadow-sm ring-1 ring-white/40 hover:bg-white dark:hover:bg-slate-900">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="m12 19-7-7 7-7" />
                     <path d="M19 12H5" />
@@ -45,15 +45,15 @@
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-5">
         {{-- Card 1: Customer Details --}}
         <div class="lg:col-span-2">
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                <div class="flex items-center gap-2 border-b border-slate-200 px-6 py-4">
-                    <span class="grid h-8 w-8 place-items-center rounded-lg bg-blue-50 text-blue-600">
+            <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
+                <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
+                    <span class="grid h-8 w-8 place-items-center rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400">
                         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                             <circle cx="12" cy="7" r="4" />
                         </svg>
                     </span>
-                    <h3 class="text-base font-semibold text-slate-950">Customer Details</h3>
+                    <h3 class="text-base font-semibold text-slate-950 dark:text-slate-50">Customer Details</h3>
                 </div>
 
                 <div class="p-6">
@@ -67,15 +67,15 @@
                                 count($parts) > 1
                                 ? substr($parts[0], 0, 1). substr(end($parts), 0, 1): substr($parts[0], 0, 2));
                         @endphp
-                        <div class="mb-6 flex items-center gap-4 rounded-xl bg-slate-50 p-4">
+                        <div class="mb-6 flex items-center gap-4 rounded-xl bg-slate-50 dark:bg-slate-800 p-4">
                             <div class="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-lg font-bold text-white shadow-sm">
                                 {{ $initials }}
                             </div>
                             <div class="min-w-0">
-                                <p class="truncate text-base font-bold text-slate-900">{{ $user->name }}</p>
-                                <p class="truncate text-sm text-slate-500">{{ $user->email }}</p>
+                                <p class="truncate text-base font-bold text-slate-900 dark:text-slate-100">{{ $user->name }}</p>
+                                <p class="truncate text-sm text-slate-500 dark:text-slate-400">{{ $user->email }}</p>
                             </div>
-                            <span class="ml-auto inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
+                            <span class="ml-auto inline-flex items-center gap-1.5 rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 px-3 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300">
                                 <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                                 {{  (!empty($user->is_active) ? 'Active' : 'Not Active') }}
                             </span>
@@ -83,46 +83,46 @@
 
                         <dl class="space-y-4">
                             <div class="flex items-start gap-3">
-                                <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-slate-100 text-slate-500">
+                                <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
                                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
                                     </svg>
                                 </span>
                                 <div>
-                                    <dt class="text-xs font-bold uppercase text-slate-500">Phone Number</dt>
-                                    <dd class="mt-0.5 text-sm font-medium text-slate-800">{{ $user->phone }}</dd>
+                                    <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Phone Number</dt>
+                                    <dd class="mt-0.5 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->phone }}</dd>
                                 </div>
                             </div>
 
                             <div class="flex items-start gap-3">
-                                <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-slate-100 text-slate-500">
+                                <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
                                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                                         <circle cx="12" cy="10" r="3" />
                                     </svg>
                                 </span>
                                 <div>
-                                    <dt class="text-xs font-bold uppercase text-slate-500">Location</dt>
-                                    <dd class="mt-0.5 text-sm font-medium text-slate-800">{{ $user->address }}</dd>
+                                    <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Location</dt>
+                                    <dd class="mt-0.5 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->address }}</dd>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-2 gap-4 border-t border-slate-100 pt-4">
+                            <div class="grid grid-cols-2 gap-4 border-t border-slate-100 dark:border-slate-800 pt-4">
                                 <div>
-                                    <dt class="text-xs font-bold uppercase text-slate-500">City</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800">{{ $user->city->name }}</dd>
+                                    <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">City</dt>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->city->name }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-xs font-bold uppercase text-slate-500">State</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800">{{ $user->state->name }}</dd>
+                                    <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">State</dt>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->state->name }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-xs font-bold uppercase text-slate-500">Country</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800">{{ $user->country->name}}</dd>
+                                    <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Country</dt>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->country->name}}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-xs font-bold uppercase text-slate-500">Status</dt>
+                                    <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Status</dt>
                                     <dd class="mt-1">
-                                        <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">{{ (!empty($user->is_active) ? 'Active' : 'Not Active') }}</span>
+                                        <span class="inline-flex items-center rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-300">{{ (!empty($user->is_active) ? 'Active' : 'Not Active') }}</span>
                                     </dd>
                                 </div>
                             </div>
@@ -134,25 +134,25 @@
 
         {{-- Card 2: Product Details --}}
         <div class="lg:col-span-3">
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
                 @foreach($products as $product)
                 {{-- @dd($product->dicount_price) --}}
-                    <div class="flex items-center gap-2 border-b border-slate-200 px-6 py-4">
-                        <span class="grid h-8 w-8 place-items-center rounded-lg bg-indigo-50 text-indigo-600">
+                    <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
+                        <span class="grid h-8 w-8 place-items-center rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600">
                             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
                                 <path d="M3 6h18" />
                                 <path d="M16 10a4 4 0 0 1-8 0" />
                             </svg>
                         </span>
-                        <h3 class="text-base font-semibold text-slate-950">Product Details</h3>
+                        <h3 class="text-base font-semibold text-slate-950 dark:text-slate-50">Product Details</h3>
                         @if (!empty($product->stock))
-                            <span class="ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
+                            <span class="ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 px-3 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300">
                                 <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500"></span>
                                 In Stock
                             </span>
                         @else
-                            <span class="ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-bold text-rose-700">
+                            <span class="ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-950 px-3 py-1 text-xs font-bold text-rose-700 dark:text-rose-300">
                                 <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500"></span>
                                 Out of Stock
                             </span>
@@ -166,34 +166,34 @@
                                 <div class="relative">
                                     <img src="{{ asset( $product->image )}}"
                                         alt={{ $product->name }}
-                                        class="h-48 w-48 rounded-xl border border-slate-200 object-cover shadow-sm">
+                                        class="h-48 w-48 rounded-xl border border-slate-200 dark:border-slate-700 object-cover shadow-sm">
                                     <span class="absolute left-2 top-2 inline-flex items-center rounded-full bg-blue-600 px-2.5 py-0.5 text-[11px] font-bold text-white shadow">{{ $product->subcategory->name}}</span>
                                 </div>
                             </div>
 
                             {{-- Product Info --}}
                             <div class="flex-1">
-                                <h4 class="text-lg font-bold text-slate-900">{{ $product->name }}</h4>
-                                <p class="mt-0.5 text-sm text-slate-500">by <span class="font-semibold text-slate-700">PetSaathi</span></p>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-slate-100">{{ $product->name }}</h4>
+                                <p class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">by <span class="font-semibold text-slate-700 dark:text-slate-300">PetSaathi</span></p>
 
                                 <div class="mt-3 flex items-baseline gap-2">
-                                    <span class="text-2xl font-bold text-slate-900">{{ $product->discount_price }}</span>
-                                    <span class="text-sm font-medium text-slate-400 line-through">{{ $product->price }}</span>
+                                    <span class="text-2xl font-bold text-slate-900 dark:text-slate-100">{{ $product->discount_price }}</span>
+                                    <span class="text-sm font-medium text-slate-400 dark:text-slate-500 line-through">{{ $product->price }}</span>
                                 </div>
 
                                 <div class="mt-5 grid grid-cols-2 gap-x-6 gap-y-4">
-                                    <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
-                                        <dt class="text-xs font-bold uppercase text-slate-500">Category</dt>
-                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900">{{ $product->subcategory->category->name }}</dd>
+                                    <div class="rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-3 py-2">
+                                        <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Category</dt>
+                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-slate-100">{{ $product->subcategory->category->name }}</dd>
                                     </div>
-                                    <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
-                                        <dt class="text-xs font-bold uppercase text-slate-500">Added to Wishlist</dt>
-                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900">{{ $product->created_at}}</dd>
+                                    <div class="rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-3 py-2">
+                                        <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Added to Wishlist</dt>
+                                        <dd class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-slate-100">{{ $product->created_at}}</dd>
                                     </div>
-                                    <div class="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2">
-                                        <dt class="text-xs font-bold uppercase text-slate-500">Product Status</dt>
+                                    <div class="rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-3 py-2">
+                                        <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Product Status</dt>
                                         <dd class="mt-0.5">
-                                            <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">{{ (!empty($product->status) ? 'Active': 'Not Active') }}</span>
+                                            <span class="inline-flex items-center rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-300">{{ (!empty($product->status) ? 'Active': 'Not Active') }}</span>
                                         </dd>
                                     </div>
                                 </div>
@@ -201,9 +201,9 @@
                         </div>
 
                         {{-- Product Description --}}
-                        <div class="mt-6 border-t border-slate-200 pt-6">
-                            <dt class="text-xs font-bold uppercase text-slate-500">Description</dt>
-                            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                        <div class="mt-6 border-t border-slate-200 dark:border-slate-700 pt-6">
+                            <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Description</dt>
+                            <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                                 {{ $product->description }}
                             </p>
                         </div>
@@ -216,7 +216,7 @@
     {{-- Footer Actions --}}
     {{-- <div class="mt-6 flex justify-end">
         <a href="{{ route('admin.wishlist.index') }}"
-            class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50">
+            class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m12 19-7-7 7-7" />
                 <path d="M19 12H5" />
