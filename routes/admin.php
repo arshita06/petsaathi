@@ -5,10 +5,10 @@ use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\SubCategoryController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\SettingController;
+use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\admin\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {

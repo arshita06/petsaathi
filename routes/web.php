@@ -5,7 +5,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('petsaathi.home');
-});
+})->name('home');
+
+Route::get('/about', function () {
+    return view('petsaathi.about');
+})->name('about');
+
+Route::get('/shop', fn () => view('petsaathi.shop'))->name('shop');
+Route::get('/categories', fn () => view('petsaathi.categories'))->name('categories');
+Route::get('/blog', fn () => view('petsaathi.blog'))->name('blog');
+Route::get('/contact', fn () => view('petsaathi.contact'))->name('contact');
+Route::get('/faq', fn () => view('petsaathi.faq'))->name('faq');
+Route::get('/cart', fn () => view('petsaathi.cart'))->name('cart');
+Route::get('/wishlist', fn () => view('petsaathi.wishlist'))->name('wishlist');
+Route::get('/checkout', fn () => view('petsaathi.checkout'))->name('checkout');
+Route::get('/order-success', fn () => view('petsaathi.order-success'))->name('order.success');
+Route::get('/order-history', fn () => view('petsaathi.order-history'))->name('order.history');
+Route::get('/product-details', fn () => view('petsaathi.product-details'))->name('product.details');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

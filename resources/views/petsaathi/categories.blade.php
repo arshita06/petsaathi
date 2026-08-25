@@ -1,1 +1,60 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Categories | PetSaathi</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link href="../assets/css/style.css" rel="stylesheet"></head><body><div id="header"></div><main><section class="page-hero"><div class="container"><h1 class="section-title">Shop by Category</h1><p class="text-muted">Everything arranged beautifully for your pet needs.</p></div></section><section class="container my-5"><div class="row g-4"><div class="col-md-4"><div class="category-card reveal"><div class="cat-img">🥣</div><h4>Food & Treats</h4><p class="text-muted">Healthy meals and tasty rewards.</p></div></div><div class="col-md-4"><div class="category-card reveal"><div class="cat-img">🐰</div><h4>Toys</h4><p class="text-muted">Playful and training essentials.</p></div></div><div class="col-md-4"><div class="category-card reveal"><div class="cat-img">🧴</div><h4>Grooming</h4><p class="text-muted">Keep pets fresh and confident.</p></div></div><div class="col-md-4"><div class="category-card reveal"><div class="cat-img">🦷</div><h4>Healthcare</h4><p class="text-muted">Vet-approved care products.</p></div></div><div class="col-md-4"><div class="category-card reveal"><div class="cat-img">🛏️</div><h4>Accessories</h4><p class="text-muted">Beds, collars, clothing and more.</p></div></div><div class="col-md-4"><div class="category-card reveal"><div class="cat-img">🎁</div><h4>Deals</h4><p class="text-muted">Premium products at sweet prices.</p></div></div></div></section></main><div id="footer"></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="../assets/js/app.js"></script></body></html>
+@extends('layouts.root')
+
+@section('title', 'Categories | PetSaathi')
+
+@section('content')
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="section-title">Shop by Category</h1>
+                <p class="text-muted">Everything arranged beautifully for your pet needs.</p>
+            </div>
+        </section>
+        <section class="container my-5">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="category-card reveal">
+                        <div class="cat-img">🥣</div>
+                        <h4>Food & Treats</h4>
+                        <p class="text-muted">Healthy meals and tasty rewards.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category-card reveal">
+                        <div class="cat-img">🐰</div>
+                        <h4>Toys</h4>
+                        <p class="text-muted">Playful and training essentials.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category-card reveal">
+                        <div class="cat-img">🧴</div>
+                        <h4>Grooming</h4>
+                        <p class="text-muted">Keep pets fresh and confident.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category-card reveal">
+                        <div class="cat-img">🦷</div>
+                        <h4>Healthcare</h4>
+                        <p class="text-muted">Vet-approved care products.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category-card reveal">
+                        <div class="cat-img">🛏️</div>
+                        <h4>Accessories</h4>
+                        <p class="text-muted">Beds, collars, clothing and more.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category-card reveal">
+                        <div class="cat-img">🎁</div>
+                        <h4>Deals</h4>
+                        <p class="text-muted">Premium products at sweet prices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+@endsection

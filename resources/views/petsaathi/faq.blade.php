@@ -1,1 +1,31 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FAQ | PetSaathi</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link href="../assets/css/style.css" rel="stylesheet"></head><body><div id="header"></div><main><section class="page-hero"><div class="container"><h1 class="section-title">Frequently Asked Questions</h1></div></section><section class="container my-5"><div class="accordion reveal" id="faq"><div class="accordion-item"><h2><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#q1">Do you offer same-day delivery?</button></h2><div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faq"><div class="accordion-body">Yes, selected cities support same-day delivery.</div></div></div><div class="accordion-item"><h2><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q2">Are products genuine?</button></h2><div id="q2" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">Yes, all items are sourced from trusted brands.</div></div></div></div></section></main><div id="footer"></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="../assets/js/app.js"></script></body></html>
+@extends('layouts.root')
+
+@section('title', 'FAQ | PetSaathi')
+
+@section('content')
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="section-title">Frequently Asked Questions</h1>
+            </div>
+        </section>
+        <section class="container my-5">
+            <div class="accordion reveal" id="faq">
+                <div class="accordion-item">
+                    <h2><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#q1">Do you offer same-day
+                            delivery?</button></h2>
+                    <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+                        <div class="accordion-body">Yes, selected cities support same-day delivery.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q2">Are
+                            products genuine?</button></h2>
+                    <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faq">
+                        <div class="accordion-body">Yes, all items are sourced from trusted brands.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+@endsection

@@ -1,5 +1,8 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Checkout | PetSaathi</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link href="../assets/css/style.css" rel="stylesheet"></head><body>
-<div id="header"></div>
+@extends('layouts.root')
+
+@section('title', 'Checkout | PetSaathi')
+
+@section('content')
 <main>
 <section class="page-hero"><div class="container"><h1 class="section-title">Checkout</h1><p class="text-muted mb-0">Just a few details and your pet's order is on its way 🐾</p></div></section>
 
@@ -155,8 +158,8 @@
 </form>
 </section>
 </main>
-<div id="footer"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/app.js"></script>
-<script src="../assets/js/checkout.js"></script>
-</body></html>
+@endsection
+
+@push('scripts')
+    <script src="{{ asset('assets/js/checkout.js') }}"></script>
+@endpush

@@ -54,6 +54,9 @@ Route::middleware('auth')->group(function () {
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
+    // UI-only confirmation screen; the actual sign-out is still the POST below.
+    Route::get('logout', fn () => view('auth.logout'))->name('logout.confirm');
+
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });

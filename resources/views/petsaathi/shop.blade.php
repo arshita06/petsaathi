@@ -1,1 +1,33 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Shop | PetSaathi</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link href="../assets/css/style.css" rel="stylesheet"></head><body><div id="header"></div><main><section class="page-hero"><div class="container"><h1 class="section-title">Shop Premium Pet Products</h1><p class="text-muted">Search, filter and discover designer-quality pet essentials.</p></div></section><section class="container my-5"><div class="row g-4"><aside class="col-lg-3"><div class="glass-card p-4 sticky-top" style="top:100px"><h5>Filters</h5><input class="form-control mb-3" placeholder="Search product"><select class="form-select mb-3"><option>All Categories</option><option>Food</option><option>Toys</option><option>Healthcare</option></select><label>Price Range</label><input type="range" class="form-range"><button class="btn btn-main w-100">Apply Filter</button></div></aside><div class="col-lg-9"><div class="row g-4" data-products="8"></div></div></div></section></main><div id="footer"></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="../assets/js/app.js"></script></body></html>
+@extends('layouts.root')
+
+@section('title', 'Shop | PetSaathi')
+
+@section('content')
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="section-title">Shop Premium Pet Products</h1>
+                <p class="text-muted">Search, filter and discover designer-quality pet essentials.</p>
+            </div>
+        </section>
+        <section class="container my-5">
+            <div class="row g-4">
+                <aside class="col-lg-3">
+                    <div class="glass-card p-4 sticky-top" style="top:100px">
+                        <h5>Filters</h5><input class="form-control mb-3" placeholder="Search product"><select
+                            class="form-select mb-3">
+                            <option>All Categories</option>
+                            <option>Food</option>
+                            <option>Toys</option>
+                            <option>Healthcare</option>
+                        </select><label>Price Range</label><input type="range" class="form-range"><button
+                            class="btn btn-main w-100">Apply Filter</button>
+                    </div>
+                </aside>
+                <div class="col-lg-9">
+                    <div class="row g-4" data-products="8"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+@endsection

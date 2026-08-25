@@ -1,1 +1,20 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>About Us | PetSaathi</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link href="../assets/css/style.css" rel="stylesheet"></head><body><div id="header"></div><main><section class="page-hero"><div class="container"><h1 class="section-title">About PetSaathi</h1><p class="text-muted">A modern pet-commerce experience made with care.</p></div></section><section class="container my-5"><div class="row g-5 align-items-center"><div class="col-lg-6 reveal"><img src="../assets/images/cute-pets.svg" class="img-fluid"></div><div class="col-lg-6 reveal"><h2 class="section-title">We make pet parenting easier and happier.</h2><p class="text-muted">PetSaathi brings premium food, toys, grooming, healthcare and accessories into one clean shopping journey.</p><button class="btn btn-main">Know More</button></div></div></section></main><div id="footer"></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="../assets/js/app.js"></script></body></html>
+@extends('layouts.root')
+
+@section('content')
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="section-title">About PetSaathi</h1>
+            <p class="text-muted">A modern pet-commerce experience made with care.</p>
+        </div>
+    </section>
+    <section class="container my-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6 reveal"><img src="../assets/images/cute-pets.svg" class="img-fluid"></div>
+            <div class="col-lg-6 reveal">
+                <h2 class="section-title">We make pet parenting easier and happier.</h2>
+                <p class="text-muted">PetSaathi brings premium food, toys, grooming, healthcare and accessories into
+                    one clean shopping journey.</p><button class="btn btn-main">Know More</button>
+            </div>
+        </div>
+    </section>
+@endsection

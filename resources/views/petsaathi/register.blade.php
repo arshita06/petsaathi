@@ -1,5 +1,8 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Register | PetSaathi</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link href="../assets/css/style.css" rel="stylesheet"></head><body>
-<div id="header"></div>
+@extends('layouts.root')
+
+@section('title', 'Register | PetSaathi')
+
+@section('content')
 <main>
 <section class="auth-wrap">
 <span class="auth-blob b1"></span><span class="auth-blob b2"></span>
@@ -72,8 +75,8 @@
 
 </section>
 </main>
-<div id="footer"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/app.js"></script>
-<script src="../assets/js/auth.js"></script>
-</body></html>
+@endsection
+
+@push('scripts')
+    <script src="{{ asset('assets/js/auth.js') }}"></script>
+@endpush

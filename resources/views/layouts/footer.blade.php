@@ -9,15 +9,15 @@
             </div>
             <div class="col-md-2">
                 <h6>Shop</h6>
-                <p><a href="${root()}pages/shop.html">Products</a></p>
-                <p><a href="${root()}pages/categories.html">Categories</a></p>
-                <p><a href="${root()}pages/wishlist.html">Wishlist</a></p>
+                <p><a href="{{ route('shop') }}">Products</a></p>
+                <p><a href="{{ route('categories') }}">Categories</a></p>
+                <p><a href="{{ route('wishlist') }}">Wishlist</a></p>
             </div>
             <div class="col-md-2">
                 <h6>Company</h6>
-                <p><a href="${root()}pages/about.html">About</a></p>
-                <p><a href="${root()}pages/blog.html">Blog</a></p>
-                <p><a href="${root()}pages/faq.html">FAQ</a></p>
+                <p><a href="{{ route('about') }}">About</a></p>
+                <p><a href="{{ route('blog') }}">Blog</a></p>
+                <p><a href="{{ route('faq') }}">FAQ</a></p>
             </div>
             <div class="col-md-4">
                 <h6>Newsletter</h6>
