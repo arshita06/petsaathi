@@ -32,7 +32,9 @@ CREATE TABLE `cache` (
 
 insert  into `cache`(`key`,`value`,`expiration`) values 
 ('petsaathi-cache-jatin.sharma@theknowledgeacademy.com|127.0.0.1','i:1;',1784548440),
-('petsaathi-cache-jatin.sharma@theknowledgeacademy.com|127.0.0.1:timer','i:1784548440;',1784548440);
+('petsaathi-cache-jatin.sharma@theknowledgeacademy.com|127.0.0.1:timer','i:1784548440;',1784548440),
+('petsaathi-cache-nope@example.com|127.0.0.1','i:2;',1787655811),
+('petsaathi-cache-nope@example.com|127.0.0.1:timer','i:1787655811;',1787655811);
 
 /*Table structure for table `cache_locks` */
 
@@ -48509,18 +48511,28 @@ CREATE TABLE `products` (
   `image` longtext DEFAULT NULL,
   `description` longtext DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1,
+  `is_featured` bigint(20) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `products` */
 
-insert  into `products`(`id`,`subcategory_id`,`name`,`price`,`discount_price`,`stock`,`image`,`description`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,5,'pedigree',500,450,20,'uploads/products/1786776535_dummy.png','**Pedigree** is a record of an animal’s ancestry and family history. It shows information about its parents, grandparents, and other ancestors, and is commonly used to verify breed, lineage, and inherited characteristics.',1,'2026-07-15 15:35:55','2026-08-15 06:48:55',NULL),
-(2,6,'Rat toys',800,650,150,'uploads/products/1784525725_rat_toy.jpg','Rat toys are safe and engaging toys designed to keep pet rats active, entertained, and mentally stimulated.',1,'2026-07-20 04:59:59','2026-08-15 06:50:04',NULL),
-(3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL);
+insert  into `products`(`id`,`subcategory_id`,`name`,`price`,`discount_price`,`stock`,`image`,`description`,`status`,`is_featured`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,5,'pedigree',500,450,20,'uploads/products/1787740712_images.jpg','**Pedigree** is a record of an animal’s ancestry and family history. It shows information about its parents, grandparents, and other ancestors, and is commonly used to verify breed, lineage, and inherited characteristics.',1,1,'2026-07-15 15:35:55','2026-08-26 10:38:32',NULL),
+(2,6,'Rat toys',800,650,150,'uploads/products/1787743224_images_(11).jpg','Rat toys are safe and engaging toys designed to keep pet rats active, entertained, and mentally stimulated.',1,1,'2026-07-20 04:59:59','2026-08-26 11:20:24',NULL),
+(4,5,'Premium Puppy Food',1199,899,40,'uploads/products/1787742748_images_(1).jpg','Complete nutrition for growing puppies, packed with protein, calcium and omega-3 for healthy bones and a shiny coat.',1,0,'2026-08-26 10:45:19','2026-08-26 11:12:28',NULL),
+(5,5,'Chicken & Rice Adult Dog Food',1499,1249,45,'uploads/products/1787742793_images_(2).jpg','Everyday wholegrain meal for adult dogs, made with real chicken and easily digestible rice.',1,0,'2026-08-26 10:45:19','2026-08-26 11:13:13',NULL),
+(6,7,'Dental Care Chew Sticks',499,349,60,'uploads/products/1787742846_images_(3).jpg','Vet-approved chew sticks that reduce tartar build-up and freshen breath while your pet plays.',1,1,'2026-08-26 10:45:19','2026-08-26 11:14:06',NULL),
+(7,7,'Pet First Aid Kit',999,799,25,'uploads/products/1787742888_images_(4).jpg','Compact travel kit with bandages, antiseptic wipes, tweezers and a tick remover for everyday emergencies.',1,0,'2026-08-26 10:45:19','2026-08-26 11:14:48',NULL),
+(8,8,'Lavender Grooming Shampoo',699,549,32,'uploads/products/1787742929_images_(5).jpg','Gentle, tear-free shampoo with lavender and aloe vera that soothes sensitive skin and leaves a soft finish.',1,0,'2026-08-26 10:45:19','2026-08-26 11:15:29',NULL),
+(9,8,'Soft Bristle Grooming Brush',449,NULL,0,'uploads/products/1787742964_images_(6).jpg','Ergonomic brush with soft bristles that removes loose fur and detangles without pulling.',1,0,'2026-08-26 10:45:19','2026-08-26 11:16:04',NULL),
+(10,9,'Cozy Pet Hoodie',2299,1899,18,'uploads/products/1787743029_images_(7).jpg','Fleece-lined winter hoodie with a stretch fit, keeping small and medium pets warm on cold mornings.',1,0,'2026-08-26 10:45:19','2026-08-26 11:17:09',NULL),
+(11,9,'Cat Comfort Bed',1799,1299,12,'uploads/products/1787743072_images_(8).jpg','Plush donut bed with raised edges for head support, machine washable and non-slip underneath.',1,1,'2026-08-26 10:45:19','2026-08-26 11:17:52',NULL),
+(12,6,'Squeaky Bunny Toy',399,299,75,'uploads/products/1787743107_images_(9).jpg','Soft plush bunny with a built-in squeaker that keeps playful pets entertained for hours.',1,0,'2026-08-26 10:45:19','2026-08-26 11:18:27',NULL),
+(13,10,'Healthy Salmon Treats',599,449,90,'uploads/products/1787743166_images_(10).jpg','Grain-free training treats made from real salmon, rich in omega-3 and free from artificial colours.',1,0,'2026-08-26 10:45:19','2026-08-26 11:19:26',NULL);
 
 /*Table structure for table `role_has_permissions` */
 
@@ -48590,12 +48602,17 @@ CREATE TABLE `settings` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 /*Data for the table `settings` */
 
 insert  into `settings`(`id`,`key`,`value`,`created_at`,`updated_at`) values 
-(1,'PetSaathi','OurPets@petsaathi.com',NULL,NULL);
+(1,'Site Name','Petsaathi','2026-08-18 07:48:12','2026-08-18 07:48:12'),
+(2,'site email','ourPet@petsaathi.com','2026-08-18 07:48:51','2026-08-18 07:48:51'),
+(3,'apperence','light','2026-08-18 08:47:45','2026-08-18 08:47:45'),
+(5,'appearance','light','2026-08-18 10:56:13','2026-08-18 10:56:13'),
+(6,'site_logo','uploads/settings/1787050573_cat_toys.jpg','2026-08-18 10:56:13','2026-08-18 10:56:13'),
+(7,'site_favicon','uploads/settings/1787050573_rat_toy.jpg','2026-08-18 10:56:13','2026-08-18 10:56:13');
 
 /*Table structure for table `states` */
 
@@ -52720,7 +52737,7 @@ CREATE TABLE `subcategory` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `subcategory` */
 
@@ -52730,7 +52747,11 @@ insert  into `subcategory`(`id`,`category_id`,`name`,`is_active`,`image`,`create
 (3,1,'food',1,'uploads/subcategories/1782377065_dummy.png','2026-06-25 08:44:25','2026-06-25 08:44:39','2026-06-25 08:44:39'),
 (4,1,'Food',1,'uploads/subcategories/1782377789_dummy2.png','2026-06-25 08:47:22','2026-06-25 08:57:05','2026-06-25 08:57:05'),
 (5,1,'Food',1,'uploads/subcategories/1782377919_dog_food.jpg','2026-06-25 08:58:39','2026-06-25 08:58:39',NULL),
-(6,4,'toys',1,'uploads/subcategories/1784523553_cat_toys.jpg','2026-07-20 04:59:13','2026-07-20 04:59:13',NULL);
+(6,4,'toys',1,'uploads/subcategories/1784523553_cat_toys.jpg','2026-07-20 04:59:13','2026-07-20 04:59:13',NULL),
+(7,1,'Healthcare',1,NULL,'2026-08-26 10:45:19','2026-08-26 10:45:19',NULL),
+(8,1,'Grooming',1,NULL,'2026-08-26 10:45:19','2026-08-26 10:45:19',NULL),
+(9,4,'Accessories',1,NULL,'2026-08-26 10:45:19','2026-08-26 10:45:19',NULL),
+(10,4,'Treats',1,NULL,'2026-08-26 10:45:19','2026-08-26 10:45:19',NULL);
 
 /*Table structure for table `users` */
 
@@ -52759,7 +52780,7 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`name`,`email`,`password`,`is_active`,`phone`,`address`,`country_id`,`state_id`,`city_id`,`postal_code`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values 
-(2,'Kavya','kavya@gmail.com','$2y$12$h9F00XbJulaeNd69nrNEtO7SSJB.PS0SzAGHQD.eyDCitpvkAUTEq',1,'98765323','sector 3 , HNO 34, mumbai maharashtra',1,1,1,'1444444',NULL,'2026-06-03 07:56:32','2026-06-12 10:38:48',NULL),
+(2,'Kavya','kavya@gmail.com','$2y$12$h9F00XbJulaeNd69nrNEtO7SSJB.PS0SzAGHQD.eyDCitpvkAUTEq',1,'+91 98765 43210','12 MG Road, Bengaluru 560001',1,1,1,'1444444',NULL,'2026-06-03 07:56:32','2026-08-26 11:48:06',NULL),
 (4,'Gaven','gaven@gmail.com','$2y$12$FjS1VGeyNYtIhI7S4yJtUOEkPvwXNJtgTY98zS8Y86mhOATvl38V2',NULL,'987656798','sector 3, HNO 34 mumbai maharashtra',NULL,NULL,NULL,NULL,NULL,'2026-06-12 11:57:28','2026-06-12 11:57:28',NULL);
 
 /*Table structure for table `wishlist` */
