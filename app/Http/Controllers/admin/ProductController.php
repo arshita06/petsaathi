@@ -8,6 +8,7 @@ use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\File;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
@@ -24,7 +25,7 @@ class ProductController extends Controller
             ->where('deleted_at', null);
         })->get();
         // dd($data['products']);
-        return view('products.index', $data);
+        return view('admin.products.index', $data);
 
     }
 
@@ -82,7 +83,7 @@ class ProductController extends Controller
         // dump($data['subcategories']);
         $data['categories'] = Category::where('is_active',1)->where('deleted_at', null)->pluck('name', 'id');
         // dd($data['categories']);
-        return view('products.edit', $data);
+        return view('admin.products.edit', $data);
     }
 
     /**

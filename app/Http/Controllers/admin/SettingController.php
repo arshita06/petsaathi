@@ -6,6 +6,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
+use App\Http\Controllers\Controller;
 
 class SettingController extends Controller
 {
@@ -87,7 +88,7 @@ class SettingController extends Controller
     {
         $settings = Setting::pluck('value', 'key');
 
-        return view('settings.show', compact('settings'));
+        return view('admin.settings.show', compact('settings'));
     }
 
     /**

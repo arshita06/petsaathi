@@ -16,7 +16,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        return view('petsaathi.profile', [
             'user' => $request->user(),
         ]);
     }
@@ -28,9 +28,10 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        // NOTE: Breeze resets email_verified_at here when the address changes.
+        // This project's users table has no such column and User does not
+        // implement MustVerifyEmail, so writing it threw
+        // SQLSTATE[42S22] Unknown column 'email_verified_at' on every email edit.
 
         $request->user()->save();
 
