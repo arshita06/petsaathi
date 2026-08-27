@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -10,7 +11,7 @@ Route::get('/about', function () {
     return view('petsaathi.about');
 })->name('about');
 
-Route::get('/shop', fn () => view('petsaathi.shop'))->name('shop');
+Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
 Route::get('/categories', fn () => view('petsaathi.categories'))->name('categories');
 Route::get('/blog', fn () => view('petsaathi.blog'))->name('blog');
 Route::get('/contact', fn () => view('petsaathi.contact'))->name('contact');
