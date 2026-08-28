@@ -260,3 +260,60 @@ input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus
   .care-step:hover .care-node,.care-step:hover .care-body{transform:none}
 }
 
+
+/* ---------- Shop Price Range Slider ---------- */
+.price-filter{margin-bottom:20px}
+.price-filter-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.price-filter-label{font-weight:600;font-size:13.5px;color:var(--ink);margin:0}
+.price-range-value{font-weight:700;font-size:13.5px;color:var(--primary);background:#f6f0ff;border:1px solid var(--line);border-radius:999px;padding:4px 12px;line-height:1.5;white-space:nowrap}
+.price-slider{position:relative;height:22px;display:flex;align-items:center}
+.price-slider-track,.price-slider-fill{position:absolute;height:6px;border-radius:999px}
+.price-slider-track{left:0;right:0;background:#ece3ff;z-index:1}
+.price-slider-fill{background:linear-gradient(90deg,var(--primary),#a855ff);z-index:2}
+.price-slider input[type=range]{position:absolute;left:0;width:100%;height:20px;margin:0;padding:0;background:none;border:0;pointer-events:none;-webkit-appearance:none;appearance:none}
+.price-slider input[type=range]:focus{outline:none}
+.price-slider #minPrize{z-index:3}
+.price-slider #maxPrize{z-index:4}
+.price-slider input[type=range]::-webkit-slider-runnable-track{height:20px;background:none;border:0}
+.price-slider input[type=range]::-moz-range-track{height:20px;background:none;border:0}
+.price-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:auto;box-sizing:border-box;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 4px 12px rgba(124,60,255,.32);cursor:grab;transition:transform .18s,box-shadow .18s}
+.price-slider input[type=range]::-moz-range-thumb{pointer-events:auto;box-sizing:border-box;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 4px 12px rgba(124,60,255,.32);cursor:grab;transition:transform .18s,box-shadow .18s}
+.price-slider input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.14)}
+.price-slider input[type=range]::-moz-range-thumb:hover{transform:scale(1.14)}
+.price-slider input[type=range]:active::-webkit-slider-thumb{cursor:grabbing}
+.price-slider input[type=range]:active::-moz-range-thumb{cursor:grabbing}
+.price-slider input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 5px rgba(124,60,255,.2)}
+.price-slider input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 5px rgba(124,60,255,.2)}
+.price-slider-bounds{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+@media(max-width:575px){.price-range-value{font-size:13px;padding:3px 10px}}
+.btn-clear-filter{color:var(--muted);font-size:14.5px;padding:12px 24px}
+.btn-clear-filter:hover{color:var(--primary);border-color:var(--primary);background:#faf6ff}
+
+/* ---------- Home: Our Approach / PetSaathi Benefits ---------- */
+.approach-title{font-size:clamp(26px,2.6vw,38px);line-height:1.2;margin-bottom:18px}
+.approach-text{font-size:15.5px;line-height:1.78;margin-bottom:16px}
+.benefits-panel{position:relative;overflow:hidden;border:1px solid #eee5ff;border-radius:24px;padding:34px 32px;background:linear-gradient(135deg,#fff 0,#fffaff 55%,#f9f4ff 100%);box-shadow:0 16px 50px rgba(87,50,172,.08)}
+.benefits-panel:before{content:'';position:absolute;right:-70px;top:-70px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(255,102,170,.14) 0,transparent 68%);pointer-events:none}
+.benefits-deco{position:absolute;right:22px;bottom:18px;font-size:52px;opacity:.09;pointer-events:none;animation:bob 5s ease-in-out infinite}
+.benefits-title{position:relative;font-weight:750;letter-spacing:-.3px;font-size:21px;padding-bottom:16px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+.benefits-list{position:relative;list-style:none;margin:0;padding:0}
+.benefits-item{display:flex;align-items:center;gap:14px;padding:14px 0;font-weight:600;font-size:15.5px;line-height:1.5;border-bottom:1px solid rgba(234,223,255,.7);transition:transform .3s}
+.benefits-item:last-child{border-bottom:0;padding-bottom:0}
+.benefits-icon{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg,#fff,#f2eaff);border:1px solid var(--line);box-shadow:0 10px 24px rgba(124,60,255,.1);transition:transform .3s,box-shadow .3s,border-color .3s}
+.benefits-item:hover{transform:translateX(4px)}
+.benefits-item:hover .benefits-icon{transform:translateY(-3px) rotate(-6deg);border-color:transparent;box-shadow:0 14px 30px rgba(124,60,255,.26)}
+@media(max-width:991px){
+  .approach-section .col-lg-6:first-child{text-align:center}
+  .benefits-panel{padding:30px 26px}
+}
+@media(max-width:575px){
+  .benefits-panel{padding:26px 20px;border-radius:20px}
+  .benefits-title{font-size:19px}
+  .benefits-item{gap:12px;font-size:14.5px;padding:12px 0}
+  .benefits-icon{width:38px;height:38px;border-radius:12px;font-size:18px}
+  .benefits-deco{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .benefits-deco{animation:none}
+  .benefits-item:hover,.benefits-item:hover .benefits-icon{transform:none}
+}

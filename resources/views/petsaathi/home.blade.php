@@ -124,6 +124,46 @@
             <p class="mb-0 text-muted">Limited time offer. Shop now and save big on your pet’s favorites!</p>
         </div><a class="btn btn-main" href="pages/shop.html">Explore Deals</a>
     </section> --}}
+    <section class="container my-5 approach-section">
+        @php
+            $approachBenefits = [
+                ['icon' => '🐾', 'text' => 'Everything Your Pet Needs in One Place'],
+                ['icon' => '🛍️', 'text' => 'Discover the Right Products for Your Pet'],
+                ['icon' => '📱', 'text' => 'Easy-to-Use Experience for Every Pet Parent'],
+                ['icon' => '🐶', 'text' => 'Better Care for Happier, Healthier Pets'],
+            ];
+        @endphp
+        <div class="row g-4 g-lg-5 align-items-center">
+            <div class="col-lg-6 reveal">
+                <span class="pill">🐾 Our Approach</span>
+                <h3 class="section-title approach-title mt-3">Our Approach to
+                    <span class="gradient-text">Better Pet Care</span>
+                </h3>
+                <p class="text-muted approach-text">PetSaathi is designed to make pet care simple, accessible, and
+                    convenient for every pet parent. We bring essential pet-care services, products, guidance, and
+                    information together in one user-friendly platform, helping pet parents make better decisions for
+                    their pets.</p>
+                <p class="text-muted approach-text mb-0">Our approach focuses on creating a caring and reliable digital
+                    experience where pet parents can easily discover products, explore helpful resources, manage their
+                    pet’s needs, and stay informed about their health and well-being. From everyday care to finding the
+                    right products, PetSaathi aims to make every step of pet parenting easier.</p>
+            </div>
+            <div class="col-lg-6 reveal">
+                <div class="benefits-panel">
+                    <span class="benefits-deco" aria-hidden="true">🐾</span>
+                    <h5 class="benefits-title">PetSaathi Benefits</h5>
+                    <ul class="benefits-list">
+                        @foreach ($approachBenefits as $benefit)
+                            <li class="benefits-item">
+                                <span class="benefits-icon" aria-hidden="true">{{ $benefit['icon'] }}</span>
+                                <span>{{ $benefit['text'] }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="section-title">Recommended For You ✨</h3><a href="{{ route('shop') }}" class="btn btn-soft">View All</a>

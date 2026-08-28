@@ -20,18 +20,44 @@
                             <select
                                 class="form-select mb-3" name="category_id">
                                 <option value="">All Categories</option>
-
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">
+                                    <option value="{{ $category->id }}"{{ request('category_id') == $category->id ? 'selected' : '' }}>
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
                             </select>
-                            <label>Price Range</label>
-                            <input type="range" name="max_prize" min="0" max="5000" step="100" class="form-range" value="{{ request('max_prize', 500) }}">
+                            @php
+                                $priceFloor = 0;
+                                $priceCeil = 5000;
+                                $minPrize = (int) request('min_prize', $priceFloor);
+                                $maxPrize = (int) request('max_prize', $priceCeil);
+                            @endphp
+                            <div class="price-filter">
+                                <div class="price-filter-head">
+                                    <label class="price-filter-label" for="maxPrize">Price Range</label>
+                                    <span class="price-range-value" id="priceRangeValue" aria-live="polite">
+                                        &#8377;{{ number_format($minPrize) }} &ndash; &#8377;{{ number_format($maxPrize) }}
+                                    </span>
+                                </div>
+                                <div class="price-slider" id="priceSlider">
+                                    <div class="price-slider-track"></div>
+                                    <div class="price-slider-fill" id="priceSliderFill"></div>
+                                    <input type="range" name="min_prize" id="minPrize" aria-label="Minimum price"
+                                        min="{{ $priceFloor }}" max="{{ $priceCeil }}" step="500" value="{{ $minPrize }}">
+                                    <input type="range" name="max_prize" id="maxPrize" aria-label="Maximum price"
+                                        min="{{ $priceFloor }}" max="{{ $priceCeil }}" step="500" value="{{ $maxPrize }}">
+                                </div>
+                                <div class="price-slider-bounds">
+                                    <span>&#8377;{{ number_format($priceFloor) }}</span>
+                                    <span>&#8377;{{ number_format($priceCeil) }}</span>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-main w-100">
                                 Apply Filter
                             </button>
+                            <a href="{{ route('shop') }}" class="btn btn-soft w-100 mt-2 btn-clear-filter">
+                                Clear Filters
+                            </a>
                         </div>
                     </form>
                 </aside>
@@ -48,8 +74,6 @@
                                     <div class="position-relative">
                                         @if ($product->is_featured)
                                             <span class="tag position-absolute m-3">Featured</span>
-                                        @elseif ($hasDiscount)
-                                            <span class="tag position-absolute m-3">Deal</span>
                                         @endif
                                         <a href="{{ route('product.details') }}" class="d-block text-decoration-none">
                                             @if ($product->image)
@@ -94,14 +118,67 @@
 
     </main>
 @endsection
-<script>
-    let searchTimer;
+@push('scripts')
+    <script>
+        let searchTimer;
 
-    document.getElementById('shopSearch').addEventListener('input', function () {
-        clearTimeout(searchTimer);
+        document.getElementById('shopSearch').addEventListener('input', function () {
+            clearTimeout(searchTimer);
 
-        searchTimer = setTimeout(() => {
-            this.form.submit();
-        }, 500);
-    });
-</script>
+            searchTimer = setTimeout(() => {
+                this.form.submit();
+            }, 500);
+        });
+
+        /* ---- Price range slider: live min / max display ---- */
+        (function () {
+            const slider = document.getElementById('priceSlider');
+            if (!slider) return;
+
+            const minInput = document.getElementById('minPrize');
+            const maxInput = document.getElementById('maxPrize');
+            const fill = document.getElementById('priceSliderFill');
+            const output = document.getElementById('priceRangeValue');
+
+            const THUMB = 20; // keep in sync with the thumb size in style.css
+            const floor = Number(minInput.min);
+            const ceil = Number(minInput.max);
+
+            const inr = value => '\u20B9' + Number(value).toLocaleString('en-IN');
+            const percent = value => ((value - floor) / (ceil - floor)) * 100;
+            // Native thumbs stay inside the track, so shift the fill to match their centres.
+            const nudge = pct => (THUMB / 2) - (pct / 100 * THUMB);
+
+            function render() {
+                const lo = Number(minInput.value);
+                const hi = Number(maxInput.value);
+                const pLo = percent(lo);
+                const pHi = percent(hi);
+
+                fill.style.left = 'calc(' + pLo + '% + ' + nudge(pLo) + 'px)';
+                fill.style.width = 'calc(' + (pHi - pLo) + '% + ' + (nudge(pHi) - nudge(pLo)) + 'px)';
+                output.textContent = inr(lo) + ' \u2013 ' + inr(hi);
+
+                // Lift the min handle above the max one once it reaches the right half,
+                // otherwise an overlapped handle can no longer be grabbed.
+                minInput.style.zIndex = pLo > 50 ? 5 : 3;
+            }
+
+            minInput.addEventListener('input', function () {
+                if (Number(minInput.value) > Number(maxInput.value)) {
+                    minInput.value = maxInput.value;
+                }
+                render();
+            });
+
+            maxInput.addEventListener('input', function () {
+                if (Number(maxInput.value) < Number(minInput.value)) {
+                    maxInput.value = minInput.value;
+                }
+                render();
+            });
+
+            render();
+        })();
+    </script>
+@endpush

@@ -34,6 +34,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Where this user should land after logging in.
+     *
+     * Customers (the "user" role, and freshly registered accounts that have no
+     * role yet) go to the storefront; back-office roles go to the admin panel.
+     */
+    public function homeRoute(): string
+    {
+        $isCustomer = $this->hasRole('user') || $this->roles->isEmpty();
+
+        return $isCustomer
+            ? route('home', absolute: false)
+            : route('admin.user.index', absolute: false);
+    }
     public function wishlist()
     {
         return $this->hasMany(Wishlist::class);

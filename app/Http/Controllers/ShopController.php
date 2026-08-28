@@ -25,7 +25,12 @@ class ShopController extends Controller
 
         if($request->filled('max_prize'))
         {
-            $shops->where('price', '<=', $request->max_prize );
+            $shops->where('discount_price', '<=', $request->max_prize );
+        }
+
+        if($request->filled('min_prize'))
+        {
+            $shops->where('discount_price', '>=', $request->min_prize );
         }
         
        if($request->filled('category_id'))
