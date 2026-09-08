@@ -16,7 +16,7 @@
             <h3 class="text-base font-semibold text-slate-950 dark:text-slate-50">Category Details</h3>
         </div>
 
-        <form method="POST" action="{{ route('admin.category.update', $category) }}" class="p-6">
+        <form method="POST" action="{{ route('admin.category.update', $category) }}" enctype="multipart/form-data" class="p-6">
             @csrf
             @method('PUT')
 
@@ -26,6 +26,33 @@
                     class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                     placeholder="Example: Dogs" required>
                 @error('name')
+                    <p class="mt-2 text-sm font-semibold text-rose-600 dark:text-rose-400">{{ $message }}</p>
+                @enderror
+            </div>
+            <div>
+                <label for="description" class="mb-2 mt-5 block text-sm font-semibold text-slate-700 dark:text-slate-300">Category Description</label>
+                <input id="description" type="text" name="description" value="{{ old('description', $category->description) }}"
+                    class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
+                    placeholder="Example: Dogs" required>
+                @error('name')
+                    <p class="mt-2 text-sm font-semibold text-rose-600 dark:text-rose-400">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="image" class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Image</label>
+
+                @if ($category->image)
+                    <div class="mb-3">
+                        <img src="{{ asset($category->image) }}" alt="{{ $category->name }}"
+                            class="h-20 w-20 rounded-lg object-cover">
+                    </div>
+                @endif
+
+                <input id="image" type="file" name="image" accept="image/*"
+                    class="block w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100 shadow-sm file:mr-4 file:border-0 file:bg-slate-100 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-slate-700 hover:file:bg-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
+                <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Leave empty to keep the current image.</p>
+                @error('image')
                     <p class="mt-2 text-sm font-semibold text-rose-600 dark:text-rose-400">{{ $message }}</p>
                 @enderror
             </div>

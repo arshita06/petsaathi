@@ -16,7 +16,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('Permission.index', [
+        return view('admin.Permission.index', [
             'permissions' => Permission::withCount('roles')->latest()->get(),
         ]);
     }
@@ -26,7 +26,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('Permission.create', [
+        return view('admin.Permission.create', [
             'modules' => Permission::query()
                 ->whereNotNull('module')
                 ->where('module', '!=', '')
@@ -76,7 +76,7 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        return view('Permission.edit', compact('permission'));
+        return view('admin.Permission.edit', compact('permission'));
     }
 
     /**

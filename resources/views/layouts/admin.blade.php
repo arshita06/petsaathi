@@ -29,6 +29,19 @@
                     <p class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Management</p>
 
                     <div class="mt-2 space-y-1">
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }}">
+                            <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg transition {{ request()->routeIs('admin.dashboard') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-slate-200 dark:group-hover:bg-slate-700 group-hover:text-slate-700 dark:group-hover:text-slate-200' }}">
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                                    <rect x="14" y="14" width="7" height="7" rx="1" />
+                                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                                </svg>
+                            </span>
+                            <span class="flex-1 text-left">Dashboard</span>
+                        </a>
+
                         {{-- Access Control (collapsible) --}}
                         <div x-data="{ open: {{ request()->routeIs('admin.user.*', 'admin.roles.*', 'admin.permissions.*') ? 'true' : 'false' }} }">
                             <button type="button" @click="open = ! open"
