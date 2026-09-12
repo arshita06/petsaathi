@@ -204,8 +204,15 @@
                                         <span class="old">₹{{ number_format($product->price) }}</span>
                                     @endif
                                 </div>
-                                <button class="btn btn-main py-2 addCart" data-id="{{ $product->id }}"
-                                    @disabled(!$inStock)>Add</button>
+                                @auth
+                                    <form method="POST" action="{{ route('cart.add') }}">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button type="submit" class="btn btn-main py-2" @disabled(!$inStock)>Add</button>
+                                    </form>
+                                @else
+                                    <a href="{{ route('login') }}" class="btn btn-main py-2">Add</a>
+                                @endauth
                             </div>
                         </div>
                     </div>

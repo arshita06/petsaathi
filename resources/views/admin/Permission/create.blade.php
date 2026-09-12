@@ -78,28 +78,28 @@
     <style>
         .select2-container .select2-selection--single {
             height: 42px;
-            border-color: #cbd5e1;
+            border-color: #eadfff;
             border-radius: 0.5rem;
             padding: 5px 6px;
         }
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             line-height: 30px;
-            color: #0f172a;
+            color: #191429;
             padding-left: 6px;
         }
         .select2-container--default .select2-selection--single .select2-selection__arrow {
             height: 40px;
         }
         .select2-container--default .select2-selection--single .select2-selection__placeholder {
-            color: #94a3b8;
+            color: #9d93ba;
         }
         .select2-container--default.select2-container--focus .select2-selection--single,
         .select2-container--default.select2-container--open .select2-selection--single {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px #dbeafe;
+            border-color: #7c3cff;
+            box-shadow: 0 0 0 3px rgba(124, 60, 255, .18);
         }
         .select2-dropdown {
-            border-color: #cbd5e1;
+            border-color: #eadfff;
             border-radius: 0.5rem;
         }
     </style>

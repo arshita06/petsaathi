@@ -62,6 +62,14 @@
                     </form>
                 </aside>
                 <div class="col-lg-9">
+                    {{-- Message set by WishlistController@toggle --}}
+                    @if (session('wishlist_status'))
+                        <div class="auth-alert auth-alert-success mb-4" role="status">
+                            <span>❤️</span>
+                            <span>{{ session('wishlist_status') }}</span>
+                        </div>
+                    @endif
+
                     <div class="row g-4">
                         @forelse ($shops as $product)
                             @php
@@ -75,6 +83,22 @@
                                         @if ($product->is_featured)
                                             <span class="tag position-absolute m-3">Featured</span>
                                         @endif
+
+                                        {{-- Wishlist heart. Logged in: posts to the toggle route.
+                                             Guest: just a link to the login page. --}}
+                                        @auth
+                                            @php $saved = in_array($product->id, $wishlistIds); @endphp
+                                            <form method="POST" action="{{ route('wishlist.toggle') }}" class="wish-form">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit" class="wish-btn {{ $saved ? 'active' : '' }}"
+                                                    title="{{ $saved ? 'Remove from wishlist' : 'Save to wishlist' }}"
+                                                    aria-label="{{ $saved ? 'Remove' : 'Save' }} {{ $product->name }}">{{ $saved ? '♥' : '♡' }}</button>
+                                            </form>
+                                        @else
+                                            <a href="{{ route('login') }}" class="wish-btn" title="Log in to save this">♡</a>
+                                        @endauth
+
                                         <a href="{{ route('product.details') }}" class="d-block text-decoration-none">
                                             @if ($product->image)
                                                 <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
@@ -96,8 +120,18 @@
                                                     <span class="old">&#8377;{{ number_format($product->price) }}</span>
                                                 @endif
                                             </div>
-                                            <button class="btn btn-main py-2 addCart" data-id="{{ $product->id }}"
-                                                @disabled(!$inStock)>Add</button>
+                                            {{-- Add to cart. Logged in: posts to the cart.
+                                                 Guest: link to login, same as the heart. --}}
+                                            @auth
+                                                <form method="POST" action="{{ route('cart.add') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                    <button type="submit" class="btn btn-main py-2"
+                                                        @disabled(!$inStock)>Add</button>
+                                                </form>
+                                            @else
+                                                <a href="{{ route('login') }}" class="btn btn-main py-2">Add</a>
+                                            @endauth
                                         </div>
                                     </div>
                                 </div>

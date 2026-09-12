@@ -30,4 +30,21 @@ class Product extends Model
         return $this->hasMany(orderItem::class);
     }
 
+    /**
+     * The price a customer actually pays: the discounted price when there is
+     * a real discount, otherwise the normal price.
+     */
+    public function sellingPrice(): float
+    {
+        return $this->hasDiscount() ? (float) $this->discount_price : (float) $this->price;
+    }
+
+    /**
+     * True only when a discount price exists and is genuinely cheaper.
+     */
+    public function hasDiscount(): bool
+    {
+        return $this->discount_price && $this->discount_price < $this->price;
+    }
+
 }

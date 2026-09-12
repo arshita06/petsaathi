@@ -1,3 +1,14 @@
+@php
+    // How many products the logged-in customer has saved, for the ♡ badge.
+    $wishlistCount = auth()->check()
+        ? \App\Models\Wishlist::where('user_id', auth()->id())->count()
+        : 0;
+
+    // Total pieces in the cart, so 2 x shampoo counts as 2.
+    $cartCount = auth()->check()
+        ? (int) \App\Models\Cart::where('user_id', auth()->id())->sum('quantity')
+        : 0;
+@endphp
 <div class="topbar py-2">
     <div class="container d-flex justify-content-between">
     <div>🐾 Free shipping on orders above ₹999 &nbsp; | &nbsp; 30 days easy returns</div>
@@ -21,9 +32,10 @@
         <div class="d-flex gap-3 align-items-center">
         <div class="search-pill d-none d-xl-flex">🔍 <input class="border-0 ms-2 w-100"
             placeholder="Search for products..."></div><a class="icon-btn" href="{{ auth()->check() ? route('profile.edit') : route('login') }}">👤</a><a
-            class="icon-btn" href="{{ route('wishlist') }}">♡<span class="badge-dot">3</span></a><a
-            class="icon-btn" href="{{ route('cart') }}">🛒<span class="badge-dot"
-            id="nav-cart-badge">2</span></a>
+            class="icon-btn" href="{{ route('wishlist') }}">♡@if ($wishlistCount)<span
+                class="badge-dot">{{ $wishlistCount }}</span>@endif</a><a
+            class="icon-btn" href="{{ route('cart') }}">🛒@if ($cartCount)<span
+                class="badge-dot">{{ $cartCount }}</span>@endif</a>
         </div>
     </div>
     </div>
