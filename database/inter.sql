@@ -50,6 +50,27 @@ CREATE TABLE `cache_locks` (
 
 /*Data for the table `cache_locks` */
 
+/*Table structure for table `carts` */
+
+DROP TABLE IF EXISTS `carts`;
+
+CREATE TABLE `carts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `product_id` bigint(20) unsigned NOT NULL,
+  `quantity` int(10) unsigned NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `carts_user_id_product_id_unique` (`user_id`,`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `carts` */
+
+insert  into `carts`(`id`,`user_id`,`product_id`,`quantity`,`created_at`,`updated_at`) values 
+(1,2,1,1,'2026-09-12 09:30:00','2026-09-12 09:30:00'),
+(2,2,2,1,'2026-09-12 09:30:21','2026-09-12 09:30:21');
+
 /*Table structure for table `category` */
 
 DROP TABLE IF EXISTS `category`;
@@ -48029,6 +48050,29 @@ insert  into `cities`(`id`,`name`,`state_id`,`created_at`,`updated_at`) values
 (48355,'Yumbo',805,NULL,NULL),
 (48356,'Zarzal',805,NULL,NULL);
 
+/*Table structure for table `contact_messages` */
+
+DROP TABLE IF EXISTS `contact_messages`;
+
+CREATE TABLE `contact_messages` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `topic` varchar(255) DEFAULT NULL,
+  `message` text NOT NULL,
+  `subscribed` tinyint(1) NOT NULL DEFAULT 0,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `contact_messages` */
+
+insert  into `contact_messages`(`id`,`name`,`email`,`phone`,`topic`,`message`,`subscribed`,`is_read`,`created_at`,`updated_at`) values 
+(1,'Arshita','arshita.battu@theknowledgeacademy.com','966583807080','Returns & refunds','wehen i will get my refund',0,0,'2026-09-09 05:06:38','2026-09-09 05:06:38');
+
 /*Table structure for table `countries` */
 
 DROP TABLE IF EXISTS `countries`;
@@ -48358,7 +48402,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -48368,7 +48412,10 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (3,'0001_01_01_000002_create_jobs_table',1),
 (4,'2026_06_03_000000_add_status_and_soft_deletes_to_users_table',2),
 (5,'2026_06_03_111543_create_permission_tables',3),
-(6,'2026_06_03_120000_add_admin_fields_to_users_roles_permissions',4);
+(6,'2026_06_03_120000_add_admin_fields_to_users_roles_permissions',4),
+(7,'2026_09_09_120000_create_contact_messages_table',5),
+(8,'2026_09_09_130000_drop_ip_address_from_contact_messages_table',6),
+(9,'2026_09_09_140000_create_carts_table',7);
 
 /*Table structure for table `model_has_permissions` */
 
@@ -48401,7 +48448,7 @@ CREATE TABLE `model_has_roles` (
 /*Data for the table `model_has_roles` */
 
 insert  into `model_has_roles`(`role_id`,`model_type`,`model_id`) values 
-(2,'App\\Models\\User',2);
+(1,'App\\Models\\User',4);
 
 /*Table structure for table `order_items` */
 
@@ -52775,13 +52822,13 @@ CREATE TABLE `users` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`name`,`email`,`password`,`is_active`,`phone`,`address`,`country_id`,`state_id`,`city_id`,`postal_code`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values 
-(2,'Kavya','kavya@gmail.com','$2y$12$h9F00XbJulaeNd69nrNEtO7SSJB.PS0SzAGHQD.eyDCitpvkAUTEq',1,'+91 98765 43210','12 MG Road, Bengaluru 560001',1,1,1,'1444444',NULL,'2026-06-03 07:56:32','2026-08-26 11:48:06',NULL),
-(4,'Gaven','gaven@gmail.com','$2y$12$FjS1VGeyNYtIhI7S4yJtUOEkPvwXNJtgTY98zS8Y86mhOATvl38V2',NULL,'987656798','sector 3, HNO 34 mumbai maharashtra',NULL,NULL,NULL,NULL,NULL,'2026-06-12 11:57:28','2026-06-12 11:57:28',NULL);
+(2,'Kavya','kavya@gmail.com','$2y$12$h9F00XbJulaeNd69nrNEtO7SSJB.PS0SzAGHQD.eyDCitpvkAUTEq',1,'+91 98765 43210','12 MG Road, Bengaluru 560001',1,1,1,'1444444',NULL,'2026-06-03 07:56:32','2026-08-31 04:28:06',NULL),
+(4,'Gaven','gaven@gmail.com','$2y$12$FjS1VGeyNYtIhI7S4yJtUOEkPvwXNJtgTY98zS8Y86mhOATvl38V2',1,'987656798','sector 3, HNO 34 mumbai maharashtra',NULL,NULL,NULL,NULL,NULL,'2026-06-12 11:57:28','2026-08-31 04:28:23',NULL);
 
 /*Table structure for table `wishlist` */
 
@@ -52795,12 +52842,15 @@ CREATE TABLE `wishlist` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `wishlist` */
 
 insert  into `wishlist`(`id`,`user_id`,`product_id`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,2,2,'2026-07-24 11:40:23','2026-07-24 11:40:29',NULL);
+(1,2,2,'2026-07-24 11:40:23','2026-09-09 06:43:39','2026-09-09 06:43:39'),
+(2,2,1,'2026-09-07 09:21:27','2026-09-09 11:32:41','2026-09-09 11:32:41'),
+(4,2,4,'2026-09-09 06:41:22','2026-09-09 06:42:07','2026-09-09 06:42:07'),
+(5,2,5,'2026-09-09 12:09:31','2026-09-09 12:11:41','2026-09-09 12:11:41');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
