@@ -26,8 +26,10 @@
             <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
                 <thead class="bg-slate-50 dark:bg-slate-800">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Sr. No.</th>
-                        <th class="px-6 py-3 text-left text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Category Name</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Sr. No.</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Image</th>
+                        <th class="px-6 py-3 text-canter text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Category Name</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Category Description</th>
                         <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Is Active</th>
                         <th class="px-6 py-3 text-center text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Action</th>
                     </tr>
@@ -35,8 +37,17 @@
                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900">
                     @forelse ($categories as $category)
                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-800">
-                            <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600 dark:text-slate-400">{{ $loop->iteration }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm font-semibold text-slate-950 dark:text-slate-50">{{ $category->name }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-center text-slate-600 dark:text-slate-400">{{ $loop->iteration }}</td>
+                            <td class="whitespace-nowrap px-6 py-3 text-center">
+                                @if ($category->image)
+                                    <img src="{{ asset($category->image) }}" alt="{{ $category->name }}"
+                                        class="h-10 w-10 rounded-lg object-cover mx-auto">
+                                @else
+                                    <span class="grid h-10 w-10 place-items-center rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-400 dark:text-slate-500">N/A</span>
+                                @endif
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-center font-semibold text-slate-950 dark:text-slate-50">{{ $category->name }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-center font-semibold text-slate-950 dark:text-slate-50">{{ $category->description }}</td>
                             <td class="whitespace-nowrap px-6 py-4 text-center">
                                 @if ($category->is_active)
                                     <span class="inline-flex rounded-full bg-emerald-100 dark:bg-emerald-900 px-2 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-300">Active</span>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\RoleController;
@@ -11,7 +12,8 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
+Route::middleware(['auth', 'admin.access'])->prefix('admin')->as('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('user', UserController::class);
     Route::resource('roles', RoleController::class)->except('show');
     Route::resource('permissions', PermissionController::class)->except('show');

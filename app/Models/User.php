@@ -47,7 +47,7 @@ class User extends Authenticatable
 
         return $isCustomer
             ? route('home', absolute: false)
-            : route('admin.user.index', absolute: false);
+            : route('admin.dashboard', absolute: false);
     }
     public function wishlist()
     {
@@ -66,4 +66,3 @@ class User extends Authenticatable
         return $this->belongsTo(State::class, 'state_id');
     }
 }
-

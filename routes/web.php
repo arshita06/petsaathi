@@ -6,6 +6,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CategoryController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +16,7 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
-Route::get('/categories', fn () => view('petsaathi.categories'))->name('categories');
+Route::get('/categories', [CategoryController::class, 'category'])->name('categories');
 Route::get('/blog', fn () => view('petsaathi.blog'))->name('blog');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
@@ -25,7 +27,7 @@ Route::get('/order-history', fn () => view('petsaathi.order-history'))->name('or
 Route::get('/product-details', fn () => view('petsaathi.product-details'))->name('product.details');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect(Auth::user()->homeRoute());
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

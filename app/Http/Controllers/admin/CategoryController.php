@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -31,12 +32,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string',
         ]);
         $category = new Category();
         $category->name = $request->name;
         $category->is_active = $request->is_active;
+        $category->description = $request->description;
+        if($request->hasFile('image')){
+            $image = $request->File('image');
+            $imageName = time() . '_'. str_replace(' ',' _', $image->getclientoriginalname());
+            $image = $image->move(public_path('uploads/categories'), $imageName);
+            $category->image = 'uploads/categories/' . $imageName ;
+        }
         $category->save();
         return redirect()->route('admin.category.index')->with('Category created successfully');
     }
@@ -64,8 +73,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        // dd($request->all());
         $category->name = $request->name;
         $category->is_active = $request->is_active;
+        $category->description = $request->description;
+        if($request->hasFile('image')){
+            if($category->image && file_exists(public_path($category->image))){
+                File::delete(public_path('$category->image'));
+            }
+        $image = $request->file('image');
+        $imageName = time(). '_' . str_replace(' ', '_', $image->getclientoriginalname());
+        $image = $image->move(public_path('uploads/categories'), $imageName);
+        $category->image = 'uploads/categories/' . $imageName;
+        }
         $category->save();
         return redirect()->route('admin.category.index')->with('success','Category updated successfully');
     }
