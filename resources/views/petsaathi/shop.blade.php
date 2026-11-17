@@ -18,13 +18,23 @@
                             <h5>Filters</h5>
                             <input type= "text" name="search" class="form-control mb-3" placeholder="Search product"  id="shopSearch" value="{{ request('search') }}">
                             <select
-                                class="form-select mb-3" name="category_id">
+                                class="form-select mb-3" name="category_id" id="categoryFilter">
                                 <option value="">All Categories</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"{{ request('category_id') == $category->id ? 'selected' : '' }}>
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
+                            </select>
+                            <select class="form-select mb-3" name="subcategory_id" id="subcategoryFilter" @disabled(! $selectedCategory)>
+                                <option value="">{{ $selectedCategory ? 'All '.$selectedCategory->name.' Subcategories' : 'Select category first' }}</option>
+                                @if ($selectedCategory)
+                                    @foreach ($selectedCategory->subcategories as $subcategory)
+                                        <option value="{{ $subcategory->id }}" @selected(request('subcategory_id') == $subcategory->id)>
+                                            {{ $subcategory->name }}
+                                        </option>
+                                    @endforeach
+                                @endif
                             </select>
                             @php
                                 $priceFloor = 0;
@@ -153,16 +163,49 @@
     </main>
 @endsection
 @push('scripts')
-    <script>
-        let searchTimer;
-
-        document.getElementById('shopSearch').addEventListener('input', function () {
-            clearTimeout(searchTimer);
-
-            searchTimer = setTimeout(() => {
-                this.form.submit();
-            }, 500);
+    @php
+        $subcategoriesByCategory = $categories->mapWithKeys(function ($category) {
+            return [
+                $category->id => [
+                    'name' => $category->name,
+                    'subcategories' => $category->subcategories->map(function ($subcategory) {
+                        return [
+                            'id' => $subcategory->id,
+                            'name' => $subcategory->name,
+                        ];
+                    })->values(),
+                ],
+            ];
         });
+    @endphp
+    <script>
+        const subcategoriesByCategory = @json($subcategoriesByCategory);
+        const categoryFilter = document.getElementById('categoryFilter');
+        const subcategoryFilter = document.getElementById('subcategoryFilter');
+
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', function () {
+                if (!subcategoryFilter) return;
+
+                const selected = subcategoriesByCategory[this.value];
+                subcategoryFilter.innerHTML = '';
+                subcategoryFilter.disabled = !selected;
+
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = selected ? 'All ' + selected.name + ' Subcategories' : 'Select category first';
+                subcategoryFilter.appendChild(defaultOption);
+
+                if (selected) {
+                    selected.subcategories.forEach(function (subcategory) {
+                        const option = document.createElement('option');
+                        option.value = subcategory.id;
+                        option.textContent = subcategory.name;
+                        subcategoryFilter.appendChild(option);
+                    });
+                }
+            });
+        }
 
         /* ---- Price range slider: live min / max display ---- */
         (function () {

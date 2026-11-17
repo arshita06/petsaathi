@@ -3,65 +3,82 @@
 @section('title', 'Categories | PetSaathi')
 
 @section('content')
-    <main>
+    <main class="categories-page">
         <section class="page-hero">
             <div class="container">
                 <h1 class="section-title">Shop by Category</h1>
-                <p class="text-muted">Everything arranged beautifully for your pet needs.</p>
+                <p class="text-muted">Choose a category to explore its subcategories.</p>
             </div>
         </section>
+
         <section class="container my-5">
-            <div class="row g-4">
-                @foreach($categories as $category)
-                    <div class="col-md-4">
-                        <div class="category-card reveal">
-                            @if($category->image)
-                                <img src="{{ asset($category->image) }}" alt="{{ $category->name }}"
-                                    class="img-fluid rounded mb-3"
-                                    style="width: 100%; height: 180px; object-fit: cover;">
+            <div class="category-grid">
+                @forelse($categories as $category)
+                    @php
+                        $fallbackImage = $category->subcategories->first(fn ($subcategory) => filled($subcategory->image))?->image;
+                        $categoryImage = $category->image ?: $fallbackImage;
+                        $isSelected = $selectedCategory && $selectedCategory->id === $category->id;
+                    @endphp
+                    <a href="{{ route('categories', ['category' => $category->id]) }}#subcategories"
+                        class="category-showcase-card reveal {{ $isSelected ? 'active' : '' }}">
+                        <div class="category-showcase-image">
+                            @if($categoryImage)
+                                <img src="{{ asset($categoryImage) }}" alt="{{ $category->name }}">
+                            @else
+                                <span>{{ strtoupper(substr($category->name, 0, 2)) }}</span>
                             @endif
-                            <h4>{{ $category->name}}</h4>
-                            <p class="text-muted">{{ $category->description}}</p>
                         </div>
+                        <div class="category-showcase-body">
+                            <span>{{ $category->subcategories->count() }} {{ Str::plural('subcategory', $category->subcategories->count()) }}</span>
+                            <h3>{{ $category->name }}</h3>
+                            <p>{{ $category->description ?: 'Browse food, toys, care and comfort essentials.' }}</p>
+                        </div>
+                    </a>
+                @empty
+                    <div class="glass-card p-5 text-center reveal">
+                        <h4>No categories found</h4>
+                        <p class="text-muted mb-0">Active categories will appear here.</p>
                     </div>
-                    {{--
-                    <div class="col-md-4">
-                        <div class="category-card reveal">
-                            <div class="cat-img">🐰</div>
-                            <h4>Toys</h4>
-                            <p class="text-muted">Playful and training essentials.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="category-card reveal">
-                            <div class="cat-img">🧴</div>
-                            <h4>Grooming</h4>
-                            <p class="text-muted">Keep pets fresh and confident.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="category-card reveal">
-                            <div class="cat-img">🦷</div>
-                            <h4>Healthcare</h4>
-                            <p class="text-muted">Vet-approved care products.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="category-card reveal">
-                            <div class="cat-img">🛏️</div>
-                            <h4>Accessories</h4>
-                            <p class="text-muted">Beds, collars, clothing and more.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="category-card reveal">
-                            <div class="cat-img">🎁</div>
-                            <h4>Deals</h4>
-                            <p class="text-muted">Premium products at sweet prices.</p>
-                        </div>
-                    </div> --}}
-                @endforeach
+                @endforelse
             </div>
         </section>
+
+        @if($selectedCategory)
+            <section class="container mb-5" id="subcategories">
+                <div class="subcategory-panel reveal">
+                    <div class="subcategory-panel-head">
+                        <div>
+                            <span>Selected Category</span>
+                            <h2>{{ $selectedCategory->name }} Subcategories</h2>
+                        </div>
+                        <a href="{{ route('shop', ['category_id' => $selectedCategory->id]) }}" class="btn btn-soft">View All Products</a>
+                    </div>
+
+                    <div class="subcategory-grid">
+                        @forelse($selectedCategory->subcategories as $subcategory)
+                            <a href="{{ route('shop', ['category_id' => $selectedCategory->id, 'subcategory_id' => $subcategory->id]) }}"
+                                class="subcategory-card">
+                                <div class="subcategory-image">
+                                    @if($subcategory->image)
+                                        <img src="{{ asset($subcategory->image) }}" alt="{{ $subcategory->name }}">
+                                    @else
+                                        <span>{{ strtoupper(substr($subcategory->name, 0, 2)) }}</span>
+                                    @endif
+                                </div>
+                                <div>
+                                    <h3>{{ $subcategory->name }}</h3>
+                                    <p>{{ $subcategory->products_count }} {{ Str::plural('product', $subcategory->products_count) }}</p>
+                                </div>
+                            </a>
+                        @empty
+                            <div class="subcategory-empty">
+                                <h3>No subcategories yet</h3>
+                                <p class="text-muted mb-0">Add active subcategories from admin to show them here.</p>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </section>
+        @endif
     </main>
 @endsection

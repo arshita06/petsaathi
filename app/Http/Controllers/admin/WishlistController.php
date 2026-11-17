@@ -45,7 +45,7 @@ class WishlistController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
         $data['products'] = Product::with(['wishlist', 'subcategory.category'])->wherehas('wishlist', function ($query){
             $query->where('deleted_at', null);
@@ -53,7 +53,7 @@ class WishlistController extends Controller
             $q->where('is_active', 1)
             ->where('deleted_at', null);
         })->get();
-        $data['users'] = User::where('is_active', 1)->where('deleted_at', null)->get();
+        $data['users'] = Wishlist::with('user')->get();
         return view('admin.wishlist.show', $data);
     }
 

@@ -12,7 +12,7 @@
 <div class="topbar py-2">
     <div class="container d-flex justify-content-between">
     <div>🐾 Free shipping on orders above ₹999 &nbsp; | &nbsp; 30 days easy returns</div>
-    <div>Track Order &nbsp; | &nbsp; Help & Support</div>
+    <div><a class="topbar-link" href="{{ auth()->check() ? route('order.history') : route('login') }}">Track Order</a> &nbsp; | &nbsp; Help & Support</div>
     </div>
 </div>
 <nav class="navbar navbar-expand-lg sticky-top">
@@ -26,16 +26,36 @@
         <li><a class="nav-link {{ request()->routeIs('shop') ? 'active' : '' }}" href="{{ route('shop') }}">Shop</a></li>
         <li><a class="nav-link {{ request()->routeIs('categories') ? 'active' : '' }}" href="{{ route('categories') }}">Categories</a></li>
         <li><a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About Us</a></li>
-        <li><a class="nav-link {{ request()->routeIs('blog') ? 'active' : '' }}" href="{{ route('blog') }}">Blog</a></li>
+        {{-- <li><a class="nav-link {{ request()->routeIs('blog') ? 'active' : '' }}" href="{{ route('blog') }}">Blog</a></li> --}}
         <li><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a></li>
         </ul>
         <div class="d-flex gap-3 align-items-center">
         <div class="search-pill d-none d-xl-flex">🔍 <input class="border-0 ms-2 w-100"
             placeholder="Search for products..."></div><a class="icon-btn" href="{{ auth()->check() ? route('profile.edit') : route('login') }}">👤</a><a
+            class="icon-btn orders-icon-btn" href="{{ auth()->check() ? route('order.history') : route('login') }}" title="Order History" aria-label="Order History">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-2 2-2-2-2 2-2-2-3 2V5a2 2 0 0 1 2-2z" />
+                    <path d="M9 8h6" />
+                    <path d="M9 12h6" />
+                    <path d="M9 16h4" />
+                </svg>
+            </a><a
             class="icon-btn" href="{{ route('wishlist') }}">♡@if ($wishlistCount)<span
                 class="badge-dot">{{ $wishlistCount }}</span>@endif</a><a
             class="icon-btn" href="{{ route('cart') }}">🛒@if ($cartCount)<span
                 class="badge-dot">{{ $cartCount }}</span>@endif</a>
+            @auth
+                <form method="POST" action="{{ route('logout') }}" class="m-0">
+                    @csrf
+                    <button type="submit" class="icon-btn nav-logout-btn" title="Logout" aria-label="Logout">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4" />
+                            <path d="M15 8l4 4-4 4" />
+                            <path d="M19 12H9" />
+                        </svg>
+                    </button>
+                </form>
+            @endauth
         </div>
     </div>
     </div>

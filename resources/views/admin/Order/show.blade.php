@@ -80,10 +80,10 @@
         </div>
 
         <div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            <div class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+            {{-- <div class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
                 <p class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">UTR No.</p>
                 <p class="mt-2 break-words text-sm font-semibold text-slate-950 dark:text-slate-50">{{ $order->utr_no }}</p>
-            </div>
+            </div> --}}
             <div class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
                 <p class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Items</p>
                 <p class="mt-2 text-sm font-semibold text-slate-950 dark:text-slate-50">{{ count($order->orderItem) }} Products</p>
@@ -130,14 +130,14 @@
                                                 </svg>
                                             </div>
                                             <div>
-                                                <p class="font-semibold text-slate-950 dark:text-slate-50">{{ $item->product->name }}</p>
-                                                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $item->product->subcategory->name }}</p>
+                                                <p class="font-semibold text-slate-950 dark:text-slate-50">{{ $item->product?->name }}</p>
+                                                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $item->product?->subcategory?->name }}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 text-center text-sm font-semibold text-slate-700 dark:text-slate-300">{{ $item->quantity }}</td>
-                                    <td class="px-6 py-4 text-right text-sm text-slate-600 dark:text-slate-400">Rs. {{ number_format($item->product->price, 2) }}</td>
-                                    <td class="px-6 py-4 text-right text-sm font-bold text-slate-950 dark:text-slate-50">Rs. {{ number_format($item->product->price * $item->quantity , 2) }}</td>
+                                    <td class="px-6 py-4 text-right text-sm text-slate-600 dark:text-slate-400">Rs. {{ number_format($item->product?->price, 2) }}</td>
+                                    <td class="px-6 py-4 text-right text-sm font-bold text-slate-950 dark:text-slate-50">Rs. {{ number_format($item->product?->price * $item->quantity , 2) }}</td>
                                 </tr>
                             @empty
                                 <tr>
@@ -179,7 +179,7 @@
                 <h3 class="text-base font-semibold text-slate-950 dark:text-slate-50">Payment Summary</h3>
                 @php
                     $subTotal = $order->orderItem->sum(function ($item) {
-                            return $item->product->price * $item->quantity ;
+                            return $item->product?->price * $item->quantity ;
                         })
                 @endphp
 

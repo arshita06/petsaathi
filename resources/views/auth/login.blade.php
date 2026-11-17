@@ -24,10 +24,7 @@
                 <input id="email" name="email" type="email" value="{{ old('email') }}"
                     class="form-control @error('email') is-invalid @enderror"
                     placeholder="you@example.com" required autofocus autocomplete="username"
-                    @error('email') aria-describedby="email-error" aria-invalid="true" @enderror>
-                @error('email')
-                    <div class="field-error show" id="email-error">{{ $message }}</div>
-                @enderror
+                    @error('email') aria-invalid="true" @enderror>
             </div>
 
             <div class="mb-2 input-icon-group">

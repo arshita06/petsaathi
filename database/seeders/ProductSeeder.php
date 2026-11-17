@@ -6,74 +6,239 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
 {
     /**
-     * Catalogue data for the storefront.
+     * Complete storefront catalogue for demo and local development.
      *
-     * Subcategories are keyed by name and attached to an existing category.
-     * Products are keyed by name so the seeder can be re-run without
-     * creating duplicates — re-running refreshes prices and stock instead.
+     * Existing rows are updated by name, so the seeder can run many times
+     * without creating duplicate categories, subcategories or products.
      */
-    protected array $subcategories = [
-        'Healthcare' => 'Dog',
-        'Grooming' => 'Dog',
-        'Accessories' => 'cats',
-        'Treats' => 'cats',
-    ];
-
-    protected array $products = [
-        // [name, subcategory, price, discount_price, stock, is_featured, description]
-        ['Premium Puppy Food', 'Food', 1199, 899, 40, 0, 'Complete nutrition for growing puppies, packed with protein, calcium and omega-3 for healthy bones and a shiny coat.'],
-        ['Chicken & Rice Adult Dog Food', 'Food', 1499, 1249, 45, 0, 'Everyday wholegrain meal for adult dogs, made with real chicken and easily digestible rice.'],
-        ['Dental Care Chew Sticks', 'Healthcare', 499, 349, 60, 1, 'Vet-approved chew sticks that reduce tartar build-up and freshen breath while your pet plays.'],
-        ['Pet First Aid Kit', 'Healthcare', 999, 799, 25, 0, 'Compact travel kit with bandages, antiseptic wipes, tweezers and a tick remover for everyday emergencies.'],
-        ['Lavender Grooming Shampoo', 'Grooming', 699, 549, 32, 0, 'Gentle, tear-free shampoo with lavender and aloe vera that soothes sensitive skin and leaves a soft finish.'],
-        ['Soft Bristle Grooming Brush', 'Grooming', 449, null, 0, 0, 'Ergonomic brush with soft bristles that removes loose fur and detangles without pulling.'],
-        ['Cozy Pet Hoodie', 'Accessories', 2299, 1899, 18, 0, 'Fleece-lined winter hoodie with a stretch fit, keeping small and medium pets warm on cold mornings.'],
-        ['Cat Comfort Bed', 'Accessories', 1799, 1299, 12, 1, 'Plush donut bed with raised edges for head support, machine washable and non-slip underneath.'],
-        ['Squeaky Bunny Toy', 'toys', 399, 299, 75, 0, 'Soft plush bunny with a built-in squeaker that keeps playful pets entertained for hours.'],
-        ['Healthy Salmon Treats', 'Treats', 599, 449, 90, 0, 'Grain-free training treats made from real salmon, rich in omega-3 and free from artificial colours.'],
+    protected array $catalogue = [
+        [
+            'name' => 'Dog',
+            'description' => 'Food, care and playful essentials for happy dogs.',
+            'image' => 'uploads/categories/1789281174_images_(6).jpg',
+            'subcategories' => [
+                [
+                    'name' => 'Food',
+                    'image' => 'uploads/subcategories/1784462278_dog_food.avif',
+                    'products' => [
+                        [
+                            'name' => 'Pedigree Adult Dog Food',
+                            'price' => 500,
+                            'discount_price' => 450,
+                            'stock' => 20,
+                            'image' => 'uploads/products/1787740712_images.jpg',
+                            'is_featured' => 1,
+                            'description' => 'Balanced daily nutrition for adult dogs with protein, fibre and essential vitamins.',
+                        ],
+                        [
+                            'name' => 'Premium Puppy Food',
+                            'price' => 1199,
+                            'discount_price' => 899,
+                            'stock' => 40,
+                            'image' => 'uploads/products/1787742748_images_(1).jpg',
+                            'is_featured' => 0,
+                            'description' => 'Complete nutrition for growing puppies, packed with calcium and omega-3.',
+                        ],
+                        [
+                            'name' => 'Chicken & Rice Adult Dog Food',
+                            'price' => 1499,
+                            'discount_price' => 1249,
+                            'stock' => 45,
+                            'image' => 'uploads/products/1787742793_images_(2).jpg',
+                            'is_featured' => 0,
+                            'description' => 'Everyday wholegrain meal for adult dogs, made with real chicken and digestible rice.',
+                        ],
+                    ],
+                ],
+                [
+                    'name' => 'Healthcare',
+                    'image' => 'uploads/products/1787742846_images_(3).jpg',
+                    'products' => [
+                        [
+                            'name' => 'Dental Care Chew Sticks',
+                            'price' => 499,
+                            'discount_price' => 349,
+                            'stock' => 60,
+                            'image' => 'uploads/products/1787742846_images_(3).jpg',
+                            'is_featured' => 1,
+                            'description' => 'Vet-approved chew sticks that reduce tartar build-up and freshen breath.',
+                        ],
+                        [
+                            'name' => 'Pet First Aid Kit',
+                            'price' => 999,
+                            'discount_price' => 799,
+                            'stock' => 25,
+                            'image' => 'uploads/products/1787742888_images_(4).jpg',
+                            'is_featured' => 0,
+                            'description' => 'Compact emergency kit with bandages, antiseptic wipes, tweezers and tick remover.',
+                        ],
+                    ],
+                ],
+                [
+                    'name' => 'Grooming',
+                    'image' => 'uploads/products/1787742929_images_(5).jpg',
+                    'products' => [
+                        [
+                            'name' => 'Lavender Grooming Shampoo',
+                            'price' => 699,
+                            'discount_price' => 549,
+                            'stock' => 32,
+                            'image' => 'uploads/products/1787742929_images_(5).jpg',
+                            'is_featured' => 0,
+                            'description' => 'Gentle shampoo with lavender and aloe vera for sensitive coats.',
+                        ],
+                        [
+                            'name' => 'Soft Bristle Grooming Brush',
+                            'price' => 449,
+                            'discount_price' => null,
+                            'stock' => 30,
+                            'image' => 'uploads/products/1787742964_images_(6).jpg',
+                            'is_featured' => 0,
+                            'description' => 'Ergonomic brush that removes loose fur and detangles without pulling.',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        [
+            'name' => 'Cats',
+            'description' => 'Comfort, treats and toys for curious cats.',
+            'image' => 'uploads/categories/1789281184_images_(5).jpg',
+            'subcategories' => [
+                [
+                    'name' => 'Toys',
+                    'image' => 'uploads/subcategories/1784523553_cat_toys.jpg',
+                    'products' => [
+                        [
+                            'name' => 'Rat Toys',
+                            'price' => 800,
+                            'discount_price' => 650,
+                            'stock' => 150,
+                            'image' => 'uploads/products/1787743224_images_(11).jpg',
+                            'is_featured' => 1,
+                            'description' => 'Safe and engaging toys designed to keep small pets active and stimulated.',
+                        ],
+                        [
+                            'name' => 'Squeaky Bunny Toy',
+                            'price' => 399,
+                            'discount_price' => 299,
+                            'stock' => 75,
+                            'image' => 'uploads/products/1787743107_images_(9).jpg',
+                            'is_featured' => 0,
+                            'description' => 'Soft plush bunny with a built-in squeaker for playful pets.',
+                        ],
+                    ],
+                ],
+                [
+                    'name' => 'Accessories',
+                    'image' => 'uploads/products/1787743029_images_(7).jpg',
+                    'products' => [
+                        [
+                            'name' => 'Cozy Pet Hoodie',
+                            'price' => 2299,
+                            'discount_price' => 1899,
+                            'stock' => 18,
+                            'image' => 'uploads/products/1787743029_images_(7).jpg',
+                            'is_featured' => 0,
+                            'description' => 'Fleece-lined winter hoodie with a comfortable stretch fit.',
+                        ],
+                        [
+                            'name' => 'Cat Comfort Bed',
+                            'price' => 1799,
+                            'discount_price' => 1299,
+                            'stock' => 12,
+                            'image' => 'uploads/products/1787743072_images_(8).jpg',
+                            'is_featured' => 1,
+                            'description' => 'Plush donut bed with raised edges, washable cover and non-slip base.',
+                        ],
+                    ],
+                ],
+                [
+                    'name' => 'Treats',
+                    'image' => 'uploads/products/1787743166_images_(10).jpg',
+                    'products' => [
+                        [
+                            'name' => 'Healthy Salmon Treats',
+                            'price' => 599,
+                            'discount_price' => 449,
+                            'stock' => 90,
+                            'image' => 'uploads/products/1787743166_images_(10).jpg',
+                            'is_featured' => 0,
+                            'description' => 'Grain-free training treats made from real salmon and omega-rich ingredients.',
+                        ],
+                    ],
+                ],
+            ],
+        ],
     ];
 
     public function run(): void
     {
-        foreach ($this->subcategories as $name => $categoryName) {
-            $category = Category::firstOrCreate(
-                ['name' => $categoryName],
-                ['is_active' => 1]
-            );
+        $categoryCount = 0;
+        $subcategoryCount = 0;
+        $productCount = 0;
 
-            SubCategory::updateOrCreate(
-                ['name' => $name],
-                ['category_id' => $category->id, 'is_active' => 1]
-            );
-        }
+        foreach ($this->catalogue as $categoryData) {
+            $category = $this->categoryByName($categoryData['name']);
+            $category->fill([
+                'name' => $categoryData['name'],
+                'description' => $categoryData['description'],
+                'image' => $categoryData['image'],
+                'is_active' => 1,
+                'deleted_at' => null,
+            ]);
+            $category->save();
+            $categoryCount++;
 
-        foreach ($this->products as [$name, $subcategoryName, $price, $discountPrice, $stock, $isFeatured, $description]) {
-            $subcategory = SubCategory::where('name', $subcategoryName)->first();
+            foreach ($categoryData['subcategories'] as $subcategoryData) {
+                $subcategory = SubCategory::withTrashed()
+                    ->where('category_id', $category->id)
+                    ->whereRaw('LOWER(name) = ?', [Str::lower($subcategoryData['name'])])
+                    ->first() ?? new SubCategory();
 
-            if (! $subcategory) {
-                $this->command?->warn("Skipping [{$name}] — subcategory [{$subcategoryName}] not found.");
+                $subcategory->fill([
+                    'category_id' => $category->id,
+                    'name' => $subcategoryData['name'],
+                    'image' => $subcategoryData['image'],
+                    'is_active' => 1,
+                    'deleted_at' => null,
+                ]);
+                $subcategory->save();
+                $subcategoryCount++;
 
-                continue;
+                foreach ($subcategoryData['products'] as $productData) {
+                    Product::withTrashed()->updateOrCreate(
+                        ['name' => $productData['name']],
+                        [
+                            'subcategory_id' => $subcategory->id,
+                            'price' => $productData['price'],
+                            'discount_price' => $productData['discount_price'],
+                            'stock' => $productData['stock'],
+                            'image' => $productData['image'],
+                            'description' => $productData['description'],
+                            'status' => 1,
+                            'is_featured' => $productData['is_featured'],
+                            'deleted_at' => null,
+                        ]
+                    );
+                    $productCount++;
+                }
             }
-
-            Product::updateOrCreate(
-                ['name' => $name],
-                [
-                    'subcategory_id' => $subcategory->id,
-                    'price' => $price,
-                    'discount_price' => $discountPrice,
-                    'stock' => $stock,
-                    'description' => $description,
-                    'status' => 1,
-                    'is_featured' => $isFeatured,
-                ]
-            );
         }
 
-        $this->command?->info('Seeded '.count($this->products).' products across '.SubCategory::count().' subcategories.');
+        $this->command?->info("Seeded {$categoryCount} categories, {$subcategoryCount} subcategories and {$productCount} products.");
+    }
+
+    private function categoryByName(string $name): Category
+    {
+        return Category::withTrashed()
+            ->whereRaw('LOWER(name) = ?', [Str::lower($name)])
+            ->orWhereRaw('LOWER(name) = ?', [Str::plural(Str::lower($name))])
+            ->first() ?? new Category();
     }
 }

@@ -40,8 +40,22 @@ class ShopController extends Controller
                 $q->where('id', $request->category_id);
             });
         }
+
+        if($request->filled('subcategory_id'))
+        {
+            $shops->where('subcategory_id', $request->subcategory_id);
+        }
+        $categories = Category::with(['subcategories' => function ($query) {
+            $query->where('is_active', 1)->where('deleted_at', null);
+        }])->where('is_active', 1)->where('deleted_at', null)->get();
+        $selectedCategoryId = $request->filled('category_id') ? (int) $request->category_id : null;
+        $selectedCategory = $selectedCategoryId
+            ? $categories->firstWhere('id', $selectedCategoryId)
+            : null;
+
         $data['shops'] = $shops->get();
-        $data['categories'] = Category::where('is_active', 1)->where('deleted_at', null)->get();
+        $data['categories'] = $categories;
+        $data['selectedCategory'] = $selectedCategory;
 
     
         $data['wishlistIds'] = auth()->check()

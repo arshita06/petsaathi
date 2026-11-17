@@ -21,9 +21,6 @@ Route::get('/blog', fn () => view('petsaathi.blog'))->name('blog');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/faq', fn () => view('petsaathi.faq'))->name('faq');
-Route::get('/checkout', fn () => view('petsaathi.checkout'))->name('checkout');
-Route::get('/order-success', fn () => view('petsaathi.order-success'))->name('order.success');
-Route::get('/order-history', fn () => view('petsaathi.order-history'))->name('order.history');
 Route::get('/product-details', fn () => view('petsaathi.product-details'))->name('product.details');
 
 Route::get('/dashboard', function () {
@@ -41,6 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/place-order', [CartController::class, 'placeOrder'])->name('order.place');
+    Route::get('/order-success/{order?}', [CartController::class, 'orderSuccess'])->name('order.success');
+    Route::get('/order-history', [CartController::class, 'orderHistory'])->name('order.history');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

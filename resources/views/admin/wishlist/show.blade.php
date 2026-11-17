@@ -45,23 +45,24 @@
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-5">
         {{-- Card 1: Customer Details --}}
         <div class="lg:col-span-2">
-            <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
-                <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
-                    <span class="grid h-8 w-8 place-items-center rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400">
-                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                            <circle cx="12" cy="7" r="4" />
-                        </svg>
-                    </span>
-                    <h3 class="text-base font-semibold text-slate-950 dark:text-slate-50">Customer Details</h3>
-                </div>
+            @foreach($users as $wishlist)
+                <div class="mb-6 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
+                    <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
+                        <span class="grid h-8 w-8 place-items-center rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </span>
+                        <h3 class="text-base font-semibold text-slate-950 dark:text-slate-50">Customer Details</h3>
+                    </div>
 
-                <div class="p-6">
-                    {{-- Customer identity --}}
+                    <div class="p-6 mb-6">
+                        {{-- Customer identity --}}
 
-                    @foreach($users as $user)
+                    
                         @php
-                            $name = trim($user->name);
+                            $name = trim($wishlist->user->name);
                             $parts = preg_split('/\s+/', $name);
                             $initials = strtoupper(
                                 count($parts) > 1
@@ -72,12 +73,12 @@
                                 {{ $initials }}
                             </div>
                             <div class="min-w-0">
-                                <p class="truncate text-base font-bold text-slate-900 dark:text-slate-100">{{ $user->name }}</p>
-                                <p class="truncate text-sm text-slate-500 dark:text-slate-400">{{ $user->email }}</p>
+                                <p class="truncate text-base font-bold text-slate-900 dark:text-slate-100">{{ $wishlist->user->name }}</p>
+                                <p class="truncate text-sm text-slate-500 dark:text-slate-400">{{ $wishlist->user->email }}</p>
                             </div>
                             <span class="ml-auto inline-flex items-center gap-1.5 rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 px-3 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300">
                                 <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                                {{  (!empty($user->is_active) ? 'Active' : 'Not Active') }}
+                                {{  (!empty($wishlist->user->is_active) ? 'Active' : 'Not Active') }}
                             </span>
                         </div>
 
@@ -90,7 +91,7 @@
                                 </span>
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Phone Number</dt>
-                                    <dd class="mt-0.5 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->phone }}</dd>
+                                    <dd class="mt-0.5 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $wishlist->user->phone }}</dd>
                                 </div>
                             </div>
 
@@ -103,40 +104,42 @@
                                 </span>
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Location</dt>
-                                    <dd class="mt-0.5 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->address }}</dd>
+                                    <dd class="mt-0.5 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $wishlist->user->address }}</dd>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-4 border-t border-slate-100 dark:border-slate-800 pt-4">
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">City</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->city->name }}</dd>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $wishlist->user->city?->name }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">State</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->state->name }}</dd>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $wishlist->user->state?->name }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Country</dt>
-                                    <dd class="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->country->name}}</dd>
+                                    <dd class="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{{ $wishlist->user->country?->name}}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Status</dt>
                                     <dd class="mt-1">
-                                        <span class="inline-flex items-center rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-300">{{ (!empty($user->is_active) ? 'Active' : 'Not Active') }}</span>
+                                        <span class="inline-flex items-center rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-300">{{ (!empty($wishlist->user->is_active) ? 'Active' : 'Not Active') }}</span>
                                     </dd>
                                 </div>
                             </div>
                         </dl>
-                    @endforeach
+                    
+                    </div>
                 </div>
-            </div>
+            @endforeach
+            
         </div>
 
         {{-- Card 2: Product Details --}}
-        <div class="lg:col-span-3">
-            <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
-                @foreach($products as $product)
-                {{-- @dd($product->dicount_price) --}}
+        <div class="lg:col-span-3 ">
+            @foreach($products as $product)
+                <div class="mb-6 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
+               
                     <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
                         <span class="grid h-8 w-8 place-items-center rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600">
                             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -208,8 +211,9 @@
                             </p>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+            
         </div>
     </div>
 
